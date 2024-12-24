@@ -30,8 +30,8 @@ A Python-based basketball simulation system that uses real NBA data to create re
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/segunoluwole30/ai-agents.git
-cd ai-agents
+git clone https://github.com/segunoluwole30/nba-game-simulator.git
+cd nba-game-simulator
 ```
 
 2. Install required packages:

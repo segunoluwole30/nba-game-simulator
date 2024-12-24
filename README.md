@@ -99,6 +99,39 @@ game_tool = SimulateGameTool(home_team="Boston Celtics", away_team="Los Angeles 
 print(game_tool.run())
 ```
 
+### Sample Output
+When you simulate a game, you'll get output similar to this:
+
+```
+Final Score: Boston Celtics 112 - 108 Los Angeles Lakers
+
+Boston Celtics Box Score:
+--------------------------------------------------------------------------------
+Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
+--------------------------------------------------------------------------------
+Jayson Tatum             SF    36.5  28   8    5    2    1    3   
+Jaylen Brown             SG    34.2  24   6    4    1    0    2   
+Kristaps Porzingis       C     32.1  18   9    2    0    3    1   
+Derrick White            PG    31.8  15   4    6    2    1    2   
+Jrue Holiday             PG    30.4  12   5    8    2    0    2   
+Sam Hauser              SF    18.2  8    3    1    0    0    1   
+Al Horford              C     16.5  5    6    2    0    1    0   
+Luke Kornet             C     12.3  2    2    0    0    1    1   
+
+Los Angeles Lakers Box Score:
+--------------------------------------------------------------------------------
+Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
+--------------------------------------------------------------------------------
+LeBron James             SF    38.2  32   9    8    1    1    2   
+Anthony Davis            PF    36.5  26   12   3    1    4    3   
+D'Angelo Russell         PG    32.4  16   3    7    2    0    3   
+Austin Reaves            SG    30.8  14   4    5    1    0    2   
+Rui Hachimura           PF    24.6  12   5    1    0    0    1   
+Christian Wood          C     18.4  4    6    0    0    1    1   
+Gabe Vincent            PG    16.2  4    1    3    1    0    1   
+Taurean Prince          SF    14.9  0    2    1    0    0    0   
+```
+
 ## Project Structure
 
 ```

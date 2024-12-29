@@ -10,7 +10,7 @@ class SimulateDailyGamesTool(BaseTool):
     """Tool for simulating all NBA games scheduled for today."""
     
     output_file: str = Field(
-        default="data/daily_simulations.txt",
+        default="/tmp/daily_simulations.txt",
         description="Path where the simulation results will be saved"
     )
 

@@ -9,6 +9,20 @@ from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayerStatsTool i
 
 app = Flask(__name__)
 
+# Initialize database and load data on startup
+try:
+    print("Initializing database schema...")
+    create_schemas = CreateSchemasTool()
+    create_schemas.run()
+    
+    print("Loading player data...")
+    load_tool = LoadDataTool()
+    load_tool.run()
+    
+    print("Database initialization complete!")
+except Exception as e:
+    print(f"Error during initialization: {str(e)}")
+
 @app.route('/')
 def index():
     """Render the main page with team options."""

@@ -15,6 +15,14 @@ try:
     create_schemas = CreateSchemasTool()
     create_schemas.run()
     
+    print("Scraping player data...")
+    players_tool = ScrapePlayersTool()
+    players_tool.run()
+    
+    print("Scraping player statistics...")
+    stats_tool = ScrapePlayerStatsTool()
+    stats_tool.run()
+    
     print("Loading player data...")
     load_tool = LoadDataTool()
     load_tool.run()
@@ -22,6 +30,7 @@ try:
     print("Database initialization complete!")
 except Exception as e:
     print(f"Error during initialization: {str(e)}")
+    print("Continuing with partial initialization...")
 
 @app.route('/')
 def index():

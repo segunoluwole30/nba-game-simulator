@@ -8,6 +8,7 @@ from basketball_simulator_agency.database_agent.tools.LoadDataTool import LoadDa
 from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayerStatsTool import ScrapePlayerStatsTool
 import psycopg2
 from urllib.parse import urlparse
+from agency_swarm import Agency
 
 app = Flask(__name__)
 
@@ -166,13 +167,12 @@ def simulate_game(home_team, away_team):
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
-        print("Creating GameSimulationAgent...")
-        game_agent = GameSimulationAgent()
-        game_agent.start()
-        print("Created GameSimulationAgent successfully")
+        print("Creating Agency and GameSimulationAgent...")
+        agency = Agency([GameSimulationAgent()])
+        print("Created Agency successfully")
         
-        print("Sending simulation request...")
-        result = game_agent.send_message(f"Simulate a game between {home_team} and {away_team}")
+        print("Starting simulation request...")
+        result = agency.get_agents()[0].send_message(f"Simulate a game between {home_team} and {away_team}")
         print("Game simulation completed successfully")
         
         return jsonify({"result": result})
@@ -199,13 +199,12 @@ def simulate_daily():
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
-        print("Creating GameSimulationAgent...")
-        game_agent = GameSimulationAgent()
-        game_agent.start()
-        print("Created GameSimulationAgent successfully")
+        print("Creating Agency and GameSimulationAgent...")
+        agency = Agency([GameSimulationAgent()])
+        print("Created Agency successfully")
         
-        print("Sending daily simulation request...")
-        result = game_agent.send_message("Simulate all NBA games today")
+        print("Starting daily simulation request...")
+        result = agency.get_agents()[0].send_message("Simulate all NBA games today")
         print("Daily games simulation completed successfully")
         
         return jsonify({"result": result})

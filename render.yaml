@@ -2,7 +2,7 @@ services:
   - type: web
     name: nba-game-simulator
     env: python
-    buildCommand: pip install -r basketball_simulator_agency/requirements.txt
+    buildCommand: cd basketball_simulator_agency && pip install -r requirements.txt
     startCommand: cd basketball_simulator_agency && gunicorn app:app
     envVars:
       - key: PYTHON_VERSION

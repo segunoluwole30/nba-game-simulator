@@ -19,8 +19,11 @@ class ScrapePlayerStatsTool(BaseTool):
     def run(self):
         """Scrape player statistics from ESPN."""
         try:
+            # Create output directory
+            os.makedirs(os.path.dirname(self.output_path), exist_ok=True)
+            
             # Create output file
-            with open('nba_player_stats.csv', 'w', newline='', encoding='utf-8') as f:  # Remove data/ prefix
+            with open(self.output_path, 'w', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
                 writer.writerow([
                     'name', 'games_played', 'minutes_per_game', 'points_per_game',

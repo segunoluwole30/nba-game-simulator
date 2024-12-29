@@ -6,11 +6,20 @@ from basketball_simulator_agency.database_agent.tools.CreateSchemasTool import C
 from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayersTool import ScrapePlayersTool
 from basketball_simulator_agency.database_agent.tools.LoadDataTool import LoadDataTool
 from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayerStatsTool import ScrapePlayerStatsTool
+import psycopg2
+from urllib.parse import urlparse
 
 app = Flask(__name__)
 
 # Initialize database and load data on startup
 try:
+    # Verify OpenAI API key
+    openai_key = os.getenv('OPENAI_API_KEY')
+    if not openai_key:
+        print("WARNING: OPENAI_API_KEY not set. Game simulations will not work!")
+    else:
+        print("OpenAI API key verified")
+    
     print("Initializing database schema...")
     create_schemas = CreateSchemasTool()
     create_schemas.run()
@@ -114,22 +123,79 @@ def load_data():
             'message': f'Error loading data: {str(e)}'
         }), 500
 
+def verify_db_connection():
+    """Verify database connection is working."""
+    try:
+        db_url = os.getenv('DATABASE_URL')
+        if not db_url:
+            raise Exception("DATABASE_URL environment variable not set")
+            
+        print(f"Verifying database connection...")
+        result = urlparse(db_url)
+        username = result.username
+        password = result.password
+        database = result.path[1:]
+        hostname = result.hostname
+        
+        conn = psycopg2.connect(
+            database=database,
+            user=username,
+            password=password,
+            host=hostname
+        )
+        conn.close()
+        print("Database connection verified successfully")
+        return True
+    except Exception as e:
+        print(f"Database connection verification failed: {str(e)}")
+        return False
+
 @app.route('/simulate_game/<home_team>/<away_team>')
 def simulate_game(home_team, away_team):
     try:
+        print(f"\nAttempting to simulate game: {home_team} vs {away_team}")
+        
+        # Check OpenAI API key
+        if not os.getenv('OPENAI_API_KEY'):
+            raise Exception("OpenAI API key not set. Please add OPENAI_API_KEY to environment variables.")
+        
+        if not verify_db_connection():
+            raise Exception("Could not connect to database")
+            
         game_agent = GameSimulationAgent()
+        print("Created GameSimulationAgent")
         result = game_agent.handle_request(f"Simulate a game between {home_team} and {away_team}")
+        print("Game simulation completed")
         return jsonify({"result": result})
     except Exception as e:
+        print(f"Error in simulate_game: {str(e)}")
+        print(f"Error type: {type(e)}")
+        import traceback
+        print(f"Traceback: {traceback.format_exc()}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/simulate_daily')
 def simulate_daily():
     try:
+        print("\nAttempting to simulate daily games")
+        
+        # Check OpenAI API key
+        if not os.getenv('OPENAI_API_KEY'):
+            raise Exception("OpenAI API key not set. Please add OPENAI_API_KEY to environment variables.")
+        
+        if not verify_db_connection():
+            raise Exception("Could not connect to database")
+            
         game_agent = GameSimulationAgent()
+        print("Created GameSimulationAgent")
         result = game_agent.handle_request("Simulate all NBA games today")
+        print("Daily games simulation completed")
         return jsonify({"result": result})
     except Exception as e:
+        print(f"Error in simulate_daily: {str(e)}")
+        print(f"Error type: {type(e)}")
+        import traceback
+        print(f"Traceback: {traceback.format_exc()}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/scrape_stats', methods=['POST'])

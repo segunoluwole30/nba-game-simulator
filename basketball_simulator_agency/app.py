@@ -52,16 +52,18 @@ try:
     
     # Define the agency chart showing how agents interact
     agency_chart = {
-        game_agent: {
-            database_agent: "Request player statistics and team information"
+        "GameSimulationAgent": {
+            "DatabaseAgent": "Request player statistics and team information"
         },
-        database_agent: {
-            web_scraper_agent: "Request fresh player data and statistics"
+        "DatabaseAgent": {
+            "WebScraperAgent": "Request fresh player data and statistics"
         }
     }
     
+    agents = [game_agent, database_agent, web_scraper_agent]
     simulation_agency = Agency(
         agency_chart,
+        agents=agents,
         temperature=0.7
     )
     print("Agency initialized successfully")

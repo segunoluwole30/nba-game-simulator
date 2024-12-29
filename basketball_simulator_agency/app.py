@@ -5,6 +5,7 @@ from basketball_simulator_agency.database_agent.database_agent import DatabaseAg
 from basketball_simulator_agency.database_agent.tools.CreateSchemasTool import CreateSchemasTool
 from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayersTool import ScrapePlayersTool
 from basketball_simulator_agency.database_agent.tools.LoadDataTool import LoadDataTool
+from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayerStatsTool import ScrapePlayerStatsTool
 
 app = Flask(__name__)
 
@@ -99,6 +100,22 @@ def simulate_daily():
         return jsonify({"result": result})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/scrape_stats', methods=['POST'])
+def scrape_stats():
+    """Scrape player statistics."""
+    try:
+        stats_tool = ScrapePlayerStatsTool()
+        stats_tool.run()
+        return jsonify({
+            'status': 'success',
+            'message': 'Player statistics scraped successfully'
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Error scraping stats: {str(e)}'
+        }), 500
 
 if __name__ == '__main__':
     app.run(debug=True) 

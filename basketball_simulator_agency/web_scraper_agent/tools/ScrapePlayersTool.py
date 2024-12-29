@@ -84,11 +84,15 @@ class ScrapePlayersTool(BaseTool):
                         name_element = cells[1].find('a')
                         name = name_element.get_text(strip=True) if name_element else cells[1].get_text(strip=True)
                         position = cells[2].get_text(strip=True)
-                        number = cells[0].get_text(strip=True).replace('#', '')  # Remove # if present
+                        
+                        # Get player number from first cell
+                        number_text = cells[0].get_text(strip=True)
+                        # Remove any non-numeric characters except for decimal points
+                        number = ''.join(c for c in number_text if c.isdigit())
                         
                         # Write player data
                         writer.writerow([name, team_name, position, number, '', '', '', ''])
-                        print(f"Added {name} (#{number}) from {team_name}")
+                        print(f"Added {name} (#{number if number else 'N/A'}) from {team_name}")
                     except Exception as e:
                         print(f"Error processing player: {str(e)}")
                         continue

@@ -31,18 +31,24 @@ class LoadDataTool(BaseTool):
         Returns a message indicating success or failure.
         """
         try:
+            print("\nStarting data load process...")
+            
             # Get database connection details from environment variables
+            print("Connecting to database...")
             conn = psycopg2.connect(
                 dbname=os.getenv('DB_NAME'),
                 user=os.getenv('DB_USER'),
                 password=os.getenv('DB_PASSWORD'),
                 host=os.getenv('DB_HOST', 'localhost')
             )
+            print("Database connection successful")
             
             cur = conn.cursor()
             
             # Load teams data - extract unique teams from players file
+            print("\nLoading teams data...")
             players_df = pd.read_csv(self.players_file)
+            print(f"Found {len(players_df)} players in CSV")
             unique_teams = players_df['current_team'].unique()
             teams_loaded = 0
             
@@ -56,8 +62,10 @@ class LoadDataTool(BaseTool):
                         RETURNING id;
                     """, (team_name,))
                     teams_loaded += 1
+            print(f"Loaded {teams_loaded} teams")
             
             # Load players data
+            print("\nLoading players data...")
             players_loaded = 0
             
             for _, player in players_df.iterrows():
@@ -85,18 +93,21 @@ class LoadDataTool(BaseTool):
                     player['colleges'] if pd.notna(player['colleges']) else None
                 ))
                 players_loaded += 1
+            print(f"Loaded {players_loaded} players")
             
             # Load player statistics
+            print("\nLoading player statistics...")
             stats_loaded = 0
             if os.path.exists(self.stats_file):
-                print(f"\nFound stats file: {self.stats_file}")
+                print(f"Found stats file: {self.stats_file}")
                 stats_df = pd.read_csv(self.stats_file)
-                print(f"Loaded {len(stats_df)} player statistics records")
+                print(f"Found {len(stats_df)} player statistics records")
+                
+                # Print column names for debugging
+                print("\nStats file columns:", stats_df.columns.tolist())
                 
                 for _, stats in stats_df.iterrows():
-                    print(f"\nUpdating stats for {stats['name']}:")
-                    print(f"Games: {stats['games_played']}")
-                    print(f"Points: {stats['points_per_game']}")
+                    print(f"\nProcessing stats for {stats['name']}:")
                     
                     # Update the player's stats
                     cur.execute("""
@@ -113,9 +124,9 @@ class LoadDataTool(BaseTool):
                             free_throw_percentage = %s,
                             turnovers_per_game = %s
                         WHERE name = %s
-                        RETURNING id;  -- Add RETURNING to see if any row was updated
+                        RETURNING id;
                     """, (
-                        float(stats['games_played']),  # Changed to float to match the CSV
+                        float(stats['games_played']),
                         float(stats['minutes_per_game']),
                         float(stats['points_per_game']),
                         float(stats['rebounds_per_game']),
@@ -131,59 +142,29 @@ class LoadDataTool(BaseTool):
                     
                     result = cur.fetchone()
                     if result:
-                        print(f"Successfully updated player ID: {result[0]}")
-                        # Verify the update
-                        cur.execute("""
-                            SELECT games_played, points_per_game 
-                            FROM players 
-                            WHERE name = %s
-                        """, (stats['name'],))
-                        verify = cur.fetchone()
-                        print(f"Verified values in database - Games: {verify[0]}, Points: {verify[1]}")
+                        print(f"Updated player ID: {result[0]}")
+                        stats_loaded += 1
                     else:
                         print(f"WARNING: No player found with name: {stats['name']}")
-                    
-                    stats_loaded += 1
                     
                     # Commit after each update
                     conn.commit()
                 
-                # Final verification with a new connection
-                print("\nVerifying all updates with a fresh connection...")
-                verify_conn = psycopg2.connect(
-                    dbname=os.getenv('DB_NAME'),
-                    user=os.getenv('DB_USER'),
-                    password=os.getenv('DB_PASSWORD'),
-                    host=os.getenv('DB_HOST', 'localhost')
-                )
-                verify_cur = verify_conn.cursor()
+                print(f"\nSuccessfully updated statistics for {stats_loaded} players")
                 
-                verify_cur.execute("""
+                # Verify the updates
+                print("\nVerifying player statistics...")
+                cur.execute("""
                     SELECT COUNT(*) 
                     FROM players 
                     WHERE games_played > 0 
                     OR points_per_game > 0
                 """)
-                verify_count = verify_cur.fetchone()[0]
-                print(f"Number of players with non-zero stats: {verify_count}")
+                verify_count = cur.fetchone()[0]
+                print(f"Players with non-zero stats: {verify_count}")
                 
-                # Sample some players to verify
-                verify_cur.execute("""
-                    SELECT name, games_played, points_per_game 
-                    FROM players 
-                    WHERE games_played > 0 
-                    OR points_per_game > 0 
-                    LIMIT 5
-                """)
-                sample_players = verify_cur.fetchall()
-                print("\nSample of players with stats:")
-                for player in sample_players:
-                    print(f"{player[0]}: Games = {player[1]}, Points = {player[2]}")
-                
-                verify_cur.close()
-                verify_conn.close()
             else:
-                print(f"\nStats file not found: {self.stats_file}")
+                print(f"\nWARNING: Stats file not found: {self.stats_file}")
                 print(f"Current directory: {os.getcwd()}")
                 print(f"Directory contents: {os.listdir('data')}")
             
@@ -193,6 +174,7 @@ class LoadDataTool(BaseTool):
             return f"Successfully loaded {teams_loaded} teams, {players_loaded} players, and updated statistics for {stats_loaded} players"
             
         except Exception as e:
+            print(f"\nERROR: {str(e)}")
             return f"Error loading data: {str(e)}"
 
 if __name__ == "__main__":

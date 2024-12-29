@@ -17,9 +17,9 @@ game_sim = GameSimulationAgent()
 # Create agency with communication flows
 agency = Agency(
     [
-        db_agent,  # Entry point - manages data access
+        game_sim,  # Make GameSimulationAgent the entry point
+        [game_sim, db_agent],  # Game simulation can request data from database
         [db_agent, web_scraper],  # Database can request fresh data from scraper if needed
-        [db_agent, game_sim],  # Database provides data to game simulation
     ],
     shared_instructions="agency_manifesto.md"
 )

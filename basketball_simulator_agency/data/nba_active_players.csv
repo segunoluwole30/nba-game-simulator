@@ -29,6 +29,7 @@ De'Anthony Melton,Brooklyn Nets,SG,"6' 3""",200,26,USC
 Shake Milton,Brooklyn Nets,SG,"6' 5""",205,28,SMU
 Day'Ron Sharpe,Brooklyn Nets,C,"6' 9""",265,23,North Carolina
 Ben Simmons,Brooklyn Nets,PG,"6' 10""",240,28,LSU
+Dennis Smith Jr.,Brooklyn Nets,PG,"6' 3""",205,27,NC State
 Cam Thomas,Brooklyn Nets,SG,"6' 3""",210,23,LSU
 Trendon Watford,Brooklyn Nets,PF,"6' 8""",237,24,LSU
 Dariq Whitehead,Brooklyn Nets,F,"6' 6""",220,20,Duke
@@ -38,7 +39,6 @@ Precious Achiuwa,New York Knicks,PF,"6' 8""",243,25,Memphis
 OG Anunoby,New York Knicks,SF,"6' 7""",240,27,Indiana
 Mikal Bridges,New York Knicks,SF,"6' 6""",209,28,Villanova
 Jalen Brunson,New York Knicks,PG,"6' 2""",190,28,Villanova
-Boo Buie,New York Knicks,G,"6' 2""",180,25,Northwestern
 Pacome Dadiet,New York Knicks,G,"6' 8""",210,19,
 Josh Hart,New York Knicks,SG,"6' 4""",215,29,Villanova
 Ariel Hukporti,New York Knicks,C,"6' 11""",246,22,
@@ -47,6 +47,7 @@ Miles McBride,New York Knicks,PG,"6' 1""",195,24,West Virginia
 Kevin McCullar Jr.,New York Knicks,F,"6' 6""",210,23,Kansas
 Cameron Payne,New York Knicks,PG,"6' 3""",183,30,Murray State
 Mitchell Robinson,New York Knicks,C,"7' 0""",240,26,
+Matt Ryan,New York Knicks,F,"6' 6""",215,27,Chattanooga
 Landry Shamet,New York Knicks,SG,"6' 4""",190,27,Wichita State
 Jericho Sims,New York Knicks,C,"6' 10""",250,26,Texas
 Jacob Toppin,New York Knicks,F,"6' 8""",200,24,Kentucky
@@ -58,7 +59,7 @@ Andre Drummond,Philadelphia 76ers,C,"6' 11""",279,31,UConn
 Justin Edwards,Philadelphia 76ers,F,"6' 7""",203,21,Kentucky
 Joel Embiid,Philadelphia 76ers,C,"7' 0""",280,30,Kansas
 Paul George,Philadelphia 76ers,F,"6' 8""",220,34,Fresno State
-Eric Gordon,Philadelphia 76ers,SG,"6' 3""",215,35,Indiana
+Eric Gordon,Philadelphia 76ers,SG,"6' 3""",215,36,Indiana
 Reggie Jackson,Philadelphia 76ers,PG,"6' 2""",208,34,Boston College
 Kyle Lowry,Philadelphia 76ers,PG,"6' 0""",196,38,Villanova
 Caleb Martin,Philadelphia 76ers,SF,"6' 5""",205,29,Nevada
@@ -100,7 +101,6 @@ E.J. Liddell,Chicago Bulls,F,"6' 6""",240,24,Ohio State
 Julian Phillips,Chicago Bulls,F,"6' 8""",198,21,Tennessee
 Adama Sanogo,Chicago Bulls,C,"6' 9""",245,22,UConn
 Jalen Smith,Chicago Bulls,PF,"6' 10""",215,24,Maryland
-DJ Steward,Chicago Bulls,G,"6' 2""",162,23,Duke
 Dalen Terry,Chicago Bulls,F,"6' 7""",195,22,Arizona
 Nikola Vucevic,Chicago Bulls,C,"6' 10""",260,34,USC
 Coby White,Chicago Bulls,PG,"6' 5""",210,24,North Carolina
@@ -187,6 +187,7 @@ Vit Krejci,Atlanta Hawks,G,"6' 8""",195,24,
 Garrison Mathews,Atlanta Hawks,SG,"6' 6""",215,28,Lipscomb
 Larry Nance Jr.,Atlanta Hawks,PF,"6' 8""",245,31,Wyoming
 Onyeka Okongwu,Atlanta Hawks,PF,"6' 10""",240,24,USC
+Daeqwon Plowden,Atlanta Hawks,G,"6' 6""",216,26,Bowling Green
 Zaccharie Risacher,Atlanta Hawks,PF,"6' 8""",200,19,
 David Roddy,Atlanta Hawks,F,"6' 4""",255,23,Colorado State
 Keaton Wallace,Atlanta Hawks,G,"6' 3""",185,25,UTSA
@@ -221,10 +222,12 @@ Keshad Johnson,Miami Heat,F,"6' 7""",225,23,Arizona
 Nikola Jovic,Miami Heat,F,"6' 10""",205,21,
 Pelle Larsson,Miami Heat,G,"6' 5""",215,23,Arizona
 Kevin Love,Miami Heat,PF,"6' 8""",251,36,UCLA
+Emanuel Miller,Miami Heat,F,"6' 7""",215,24,TCU
 Josh Richardson,Miami Heat,SG,"6' 5""",200,31,Tennessee
 Duncan Robinson,Miami Heat,F,"6' 7""",215,30,Michigan
 Terry Rozier,Miami Heat,SG,"6' 1""",190,30,Louisville
 Dru Smith,Miami Heat,G,"6' 2""",203,26,Missouri
+Isaiah Stevens,Miami Heat,G,"6' 0""",185,24,Colorado State
 Kel'el Ware,Miami Heat,C,"7' 0""",230,20,Indiana
 Cole Anthony,Orlando Magic,PG,"6' 2""",185,24,North Carolina
 Paolo Banchero,Orlando Magic,PF,"6' 10""",250,22,Duke
@@ -257,7 +260,6 @@ Anthony Gill,Washington Wizards,PF,"6' 8""",230,32,Virginia
 Richaun Holmes,Washington Wizards,F,"6' 9""",235,31,Bowling Green
 Corey Kispert,Washington Wizards,SF,"6' 6""",224,25,Gonzaga
 Kyle Kuzma,Washington Wizards,SF,"6' 9""",221,29,Utah
-Jaylen Nowell,Washington Wizards,G,"6' 5""",208,25,Washington
 Jordan Poole,Washington Wizards,SG,"6' 4""",194,25,Michigan
 Alexandre Sarr,Washington Wizards,PF,"7' 0""",205,19,
 Jonas Valanciunas,Washington Wizards,C,"6' 11""",265,32,
@@ -288,7 +290,7 @@ Rob Dillingham,Minnesota Timberwolves,G,"6' 3""",175,19,Kentucky
 PJ Dozier,Minnesota Timberwolves,G,"6' 6""",205,28,South Carolina
 Anthony Edwards,Minnesota Timberwolves,SG,"6' 4""",225,23,Georgia
 Jesse Edwards,Minnesota Timberwolves,C,"7' 0""",236,24,West Virginia
-Luka Garza,Minnesota Timberwolves,C,"6' 10""",243,25,Iowa
+Luka Garza,Minnesota Timberwolves,C,"6' 10""",243,26,Iowa
 Rudy Gobert,Minnesota Timberwolves,C,"7' 1""",258,32,
 Joe Ingles,Minnesota Timberwolves,SG,"6' 8""",220,37,
 Jaden McDaniels,Minnesota Timberwolves,PF,"6' 9""",185,24,Washington

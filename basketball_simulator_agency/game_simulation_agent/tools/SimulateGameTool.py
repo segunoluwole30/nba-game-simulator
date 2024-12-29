@@ -46,55 +46,71 @@ class SimulateGameTool(BaseTool):
         away_score = 0
         home_box_score = []
         away_box_score = []
+        is_overtime = False
+        overtime_periods = 0
         
-        # Simulate each player's performance
-        for player in home_players:
-            # Add some randomness to stats based on averages
-            minutes = min(48, max(0, random.gauss(player[2], 3)))
-            points = max(0, random.gauss(player[3] * (minutes/player[2]) if player[2] > 0 else 0, 4))
-            rebounds = max(0, random.gauss(player[4] * (minutes/player[2]) if player[2] > 0 else 0, 2))
-            assists = max(0, random.gauss(player[5] * (minutes/player[2]) if player[2] > 0 else 0, 2))
-            steals = max(0, random.gauss(player[6] * (minutes/player[2]) if player[2] > 0 else 0, 1))
-            blocks = max(0, random.gauss(player[7] * (minutes/player[2]) if player[2] > 0 else 0, 1))
-            turnovers = max(0, random.gauss(player[11] * (minutes/player[2]) if player[2] > 0 else 0, 1))
+        def adjust_minutes(players, is_ot=False):
+            """Adjust player minutes to sum to 240 (or more if overtime)"""
+            nonlocal overtime_periods
+            if is_ot:
+                overtime_periods = random.randint(1, 4)  # 1-4 OT periods
+            target_minutes = 240 if not is_ot else 240 + (5 * overtime_periods)
             
-            home_score += int(points)
-            home_box_score.append({
-                'name': player[0],
-                'position': player[1],
-                'minutes': round(minutes, 1),  # Keep minutes as decimal
-                'points': int(points),
-                'rebounds': int(rebounds),
-                'assists': int(assists),
-                'steals': int(steals),
-                'blocks': int(blocks),
-                'turnovers': int(turnovers)
-            })
-        
-        for player in away_players:
-            # Add some randomness to stats based on averages
-            minutes = min(48, max(0, random.gauss(player[2], 3)))
-            points = max(0, random.gauss(player[3] * (minutes/player[2]) if player[2] > 0 else 0, 4))
-            rebounds = max(0, random.gauss(player[4] * (minutes/player[2]) if player[2] > 0 else 0, 2))
-            assists = max(0, random.gauss(player[5] * (minutes/player[2]) if player[2] > 0 else 0, 2))
-            steals = max(0, random.gauss(player[6] * (minutes/player[2]) if player[2] > 0 else 0, 1))
-            blocks = max(0, random.gauss(player[7] * (minutes/player[2]) if player[2] > 0 else 0, 1))
-            turnovers = max(0, random.gauss(player[11] * (minutes/player[2]) if player[2] > 0 else 0, 1))
+            # First pass: simulate minutes based on averages
+            box_score = []
+            total_minutes = 0
+            for player in players:
+                # Base minutes on player's average with some randomness
+                minutes = min(48, max(0, random.gauss(player[2], 2)))
+                total_minutes += minutes
+                box_score.append({
+                    'name': player[0],
+                    'position': player[1],
+                    'minutes': minutes,
+                    'original_mpg': player[2]  # Store original MPG for ratio calculations
+                })
             
-            away_score += int(points)
-            away_box_score.append({
-                'name': player[0],
-                'position': player[1],
-                'minutes': round(minutes, 1),  # Keep minutes as decimal
-                'points': int(points),
-                'rebounds': int(rebounds),
-                'assists': int(assists),
-                'steals': int(steals),
-                'blocks': int(blocks),
-                'turnovers': int(turnovers)
-            })
+            # Adjust minutes to hit target
+            scale_factor = target_minutes / total_minutes if total_minutes > 0 else 0
+            for player in box_score:
+                player['minutes'] = round(player['minutes'] * scale_factor)
+            
+            # Simulate other stats based on adjusted minutes
+            for player in box_score:
+                minutes = player['minutes']
+                mpg_ratio = minutes / player['original_mpg'] if player['original_mpg'] > 0 else 0
+                
+                # Calculate stats based on minutes played ratio
+                points = max(0, random.gauss(players[box_score.index(player)][3] * mpg_ratio, 3))
+                rebounds = max(0, random.gauss(players[box_score.index(player)][4] * mpg_ratio, 2))
+                assists = max(0, random.gauss(players[box_score.index(player)][5] * mpg_ratio, 2))
+                steals = max(0, random.gauss(players[box_score.index(player)][6] * mpg_ratio, 1))
+                blocks = max(0, random.gauss(players[box_score.index(player)][7] * mpg_ratio, 1))
+                turnovers = max(0, random.gauss(players[box_score.index(player)][11] * mpg_ratio, 1))
+                
+                # Update player stats
+                player.update({
+                    'points': int(points),
+                    'rebounds': int(rebounds),
+                    'assists': int(assists),
+                    'steals': int(steals),
+                    'blocks': int(blocks),
+                    'turnovers': int(turnovers)
+                })
+                
+            return box_score, sum(p['points'] for p in box_score)
         
-        return home_score, away_score, home_box_score, away_box_score
+        # Simulate initial 48 minutes
+        home_box_score, home_score = adjust_minutes(home_players)
+        away_box_score, away_score = adjust_minutes(away_players)
+        
+        # If scores are tied, simulate overtime
+        if home_score == away_score:
+            is_overtime = True
+            home_box_score, home_score = adjust_minutes(home_players, is_ot=True)
+            away_box_score, away_score = adjust_minutes(away_players, is_ot=True)
+        
+        return home_score, away_score, home_box_score, away_box_score, is_overtime, overtime_periods
 
     def format_box_score(self, team_name, box_score):
         """Format box score for display."""
@@ -107,7 +123,7 @@ class SimulateGameTool(BaseTool):
         box_score.sort(key=lambda x: x['points'], reverse=True)
         
         for player in box_score:
-            result += f"{player['name']:<25} {player['position']:<5} {player['minutes']:<5.1f} {player['points']:<4d} "
+            result += f"{player['name']:<25} {player['position']:<5} {player['minutes']:<5d} {player['points']:<4d} "
             result += f"{player['rebounds']:<4d} {player['assists']:<4d} {player['steals']:<4d} "
             result += f"{player['blocks']:<4d} {player['turnovers']:<4d}\n"
         
@@ -139,10 +155,13 @@ class SimulateGameTool(BaseTool):
                 return f"No players found for away team: {self.away_team}"
             
             # Simulate the game
-            home_score, away_score, home_box_score, away_box_score = self.simulate_game(home_players, away_players)
+            home_score, away_score, home_box_score, away_box_score, is_overtime, ot_periods = self.simulate_game(home_players, away_players)
             
             # Format the results
-            result = f"\nFinal Score: {self.home_team} {home_score} - {away_score} {self.away_team}\n"
+            result = f"\nFinal Score: {self.home_team} {home_score} - {away_score} {self.away_team}"
+            if is_overtime:
+                result += f" ({ot_periods}OT)" if ot_periods == 1 else f" ({ot_periods}OTs)"
+            result += "\n"
             result += self.format_box_score(self.home_team, home_box_score)
             result += "\n"
             result += self.format_box_score(self.away_team, away_box_score)

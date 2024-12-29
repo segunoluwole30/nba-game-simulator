@@ -1,5 +1,6 @@
 from agency_swarm import Agent
 from .tools.SimulateGameTool import SimulateGameTool
+from .tools.SimulateDailyGamesTool import SimulateDailyGamesTool
 
 class GameSimulationAgent(Agent):
     def __init__(self):
@@ -7,5 +8,5 @@ class GameSimulationAgent(Agent):
             name="GameSimulationAgent",
             description="Agent responsible for simulating basketball games using player statistics",
             instructions="./instructions.md",
-            tools=[SimulateGameTool]
+            tools=[SimulateGameTool, SimulateDailyGamesTool]
         ) 

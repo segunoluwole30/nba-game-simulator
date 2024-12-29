@@ -4,10 +4,11 @@ import psycopg2
 import pandas as pd
 from dotenv import load_dotenv
 import os
+from ..tools.BaseDatabaseTool import BaseDatabaseTool
 
 load_dotenv()
 
-class LoadDataTool(BaseTool):
+class LoadDataTool(BaseDatabaseTool):
     """
     A tool for loading data from CSV files into the PostgreSQL database.
     Handles both team and player data with proper relationships.
@@ -33,14 +34,9 @@ class LoadDataTool(BaseTool):
         try:
             print("\nStarting data load process...")
             
-            # Get database connection details from environment variables
+            # Get database connection using parent class method
             print("Connecting to database...")
-            conn = psycopg2.connect(
-                dbname=os.getenv('DB_NAME'),
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASSWORD'),
-                host=os.getenv('DB_HOST', 'localhost')
-            )
+            conn = self.get_db_connection()
             print("Database connection successful")
             
             cur = conn.cursor()

@@ -1,33 +1,19 @@
 from agency_swarm.tools import BaseTool
-from pydantic import Field
 import psycopg2
-import os
 from dotenv import load_dotenv
+import os
+from ..tools.BaseDatabaseTool import BaseDatabaseTool
 
-class CreateSchemasTool(BaseTool):
-    """Tool for creating database schemas for the basketball simulator."""
+load_dotenv()
 
-    def run(self) -> str:
-        """Create the necessary database schemas."""
+class CreateSchemasTool(BaseDatabaseTool):
+    """Tool for creating database schemas."""
+
+    def run(self):
+        """Create the necessary database tables."""
         try:
-            # Load environment variables
-            load_dotenv()
-            
-            # Get database credentials from environment variables
-            db_name = os.getenv('DB_NAME')
-            db_user = os.getenv('DB_USER')
-            db_password = os.getenv('DB_PASSWORD')
-            db_host = os.getenv('DB_HOST', 'localhost')
-            
-            # Connect to the database
-            conn = psycopg2.connect(
-                dbname=db_name,
-                user=db_user,
-                password=db_password,
-                host=db_host
-            )
-            
-            # Create a cursor
+            # Get database connection using parent class method
+            conn = self.get_db_connection()
             cur = conn.cursor()
             
             # Drop existing tables if they exist

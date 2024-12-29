@@ -14,5 +14,10 @@ setup(
         'agency-swarm>=0.1.0',
         'pydantic>=1.10.13',
         'gunicorn>=20.1.0',
+        'pandas>=1.5.0',
+        'numpy>=1.21.0',
+        'openai>=1.5.0',
+        'instructor>=0.4.5',
+        'termcolor>=2.3.0',
     ],
 ) 

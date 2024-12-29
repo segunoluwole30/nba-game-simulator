@@ -8,31 +8,22 @@ class BaseDatabaseTool(BaseTool):
     def get_db_connection(self):
         """Get a database connection using environment variables."""
         try:
-            # Print all relevant environment variables for debugging
-            print("=== Environment Variables ===")
+            # Print environment variables for debugging
+            print("\nDatabase connection details:")
             print(f"DATABASE_URL: {os.getenv('DATABASE_URL')}")
-            print(f"RENDER: {os.getenv('RENDER')}")
-            print("=== End Environment Variables ===")
             
-            # Check for DATABASE_URL (provided by Render)
+            # Use DATABASE_URL if available (Render deployment)
             database_url = os.getenv('DATABASE_URL')
-            
             if database_url:
-                print(f"Using DATABASE_URL for connection")
-                conn = psycopg2.connect(database_url)
-            else:
-                # Fallback to local development settings
-                print("Using local database settings")
-                conn = psycopg2.connect(
-                    host='localhost',
-                    database='basketball_sim',
-                    user='segun',
-                    password=''
-                )
+                return psycopg2.connect(database_url)
             
-            print("Database connection successful!")
-            return conn
+            # Fallback to individual credentials for local development
+            return psycopg2.connect(
+                dbname=os.getenv('DB_NAME'),
+                user=os.getenv('DB_USER'),
+                password=os.getenv('DB_PASSWORD'),
+                host=os.getenv('DB_HOST', 'localhost')
+            )
         except Exception as e:
-            error_msg = f"Failed to connect to database: {str(e)}"
-            print(error_msg)  # Print the error
-            raise Exception(error_msg) 
+            print(f"Database connection error: {str(e)}")
+            raise 

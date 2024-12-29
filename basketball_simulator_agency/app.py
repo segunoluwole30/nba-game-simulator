@@ -159,9 +159,9 @@ def simulate_game(home_team, away_team):
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
-        # Use SimulateGameTool directly
-        game_tool = SimulateGameTool()
-        result = game_tool.run(home_team=home_team, away_team=away_team)
+        # Create SimulateGameTool with team names as constructor parameters
+        game_tool = SimulateGameTool(home_team=home_team, away_team=away_team)
+        result = game_tool.run()  # No need to pass parameters here since they're in constructor
         print("Game simulation completed successfully")
         
         return jsonify({"result": result})

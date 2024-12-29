@@ -1,8 +1,5 @@
 import os
 from flask import Flask, render_template, jsonify, request
-from basketball_simulator_agency.game_simulation_agent.game_simulation_agent import GameSimulationAgent
-from basketball_simulator_agency.database_agent.database_agent import DatabaseAgent
-from basketball_simulator_agency.web_scraper_agent.web_scraper_agent import WebScraperAgent
 from basketball_simulator_agency.database_agent.tools.CreateSchemasTool import CreateSchemasTool
 from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayersTool import ScrapePlayersTool
 from basketball_simulator_agency.database_agent.tools.LoadDataTool import LoadDataTool
@@ -10,6 +7,8 @@ from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayerStatsTool i
 import psycopg2
 from urllib.parse import urlparse
 from agency_swarm import Agency
+from basketball_simulator_agency.game_simulation_agent.tools.SimulateGameTool import SimulateGameTool
+from basketball_simulator_agency.game_simulation_agent.tools.SimulateDailyGamesTool import SimulateDailyGamesTool
 
 app = Flask(__name__)
 
@@ -42,64 +41,6 @@ try:
 except Exception as e:
     print(f"Error during initialization: {str(e)}")
     print("Continuing with partial initialization...")
-
-# Create a single Agency instance at startup
-try:
-    print("Initializing Agency...")
-    
-    # Verify OpenAI API key first
-    openai_key = os.getenv('OPENAI_API_KEY')
-    if not openai_key:
-        raise Exception("OpenAI API key not set. Please add OPENAI_API_KEY to environment variables.")
-    print("OpenAI API key verified")
-    
-    # Initialize agents with error handling
-    try:
-        game_agent = GameSimulationAgent()
-        print("GameSimulationAgent initialized")
-    except Exception as e:
-        print(f"Error initializing GameSimulationAgent: {str(e)}")
-        raise
-        
-    try:
-        db_agent = DatabaseAgent()
-        print("DatabaseAgent initialized")
-    except Exception as e:
-        print(f"Error initializing DatabaseAgent: {str(e)}")
-        raise
-        
-    try:
-        web_scraper = WebScraperAgent()
-        print("WebScraperAgent initialized")
-    except Exception as e:
-        print(f"Error initializing WebScraperAgent: {str(e)}")
-        raise
-    
-    # Get the absolute path to the agency manifesto
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    manifesto_path = os.path.join(current_dir, "agency_manifesto.md")
-    print(f"Using manifesto at: {manifesto_path}")
-    
-    # Initialize agency with communication flows
-    try:
-        simulation_agency = Agency(
-            [
-                game_agent,  # Make GameSimulationAgent the entry point
-                [game_agent, db_agent],  # Game simulation can request data from database
-                [db_agent, web_scraper],  # Database can request fresh data from scraper if needed
-            ],
-            shared_instructions=manifesto_path,
-            temperature=0.7
-        )
-        print("Agency initialized successfully")
-    except Exception as e:
-        print(f"Error creating Agency with communication flows: {str(e)}")
-        raise
-        
-except Exception as e:
-    print(f"Warning: Could not initialize Agency: {str(e)}")
-    print("Make sure OPENAI_API_KEY is set and valid")
-    simulation_agency = None
 
 @app.route('/')
 def index():
@@ -215,25 +156,12 @@ def simulate_game(home_team, away_team):
     try:
         print(f"\nAttempting to simulate game: {home_team} vs {away_team}")
         
-        # Check OpenAI API key
-        openai_key = os.getenv('OPENAI_API_KEY')
-        if not openai_key:
-            print("OpenAI API key not found in environment")
-            raise Exception("OpenAI API key not set. Please add OPENAI_API_KEY to environment variables.")
-        else:
-            print("OpenAI API key verified")
-        
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
-        if simulation_agency is None:
-            raise Exception("Agency not initialized. Please check OpenAI API key and try again.")
-            
-        print("Starting simulation request...")
-        result = simulation_agency.get_agents()[0].send_message(
-            f"Simulate a game between {home_team} and {away_team}",
-            timeout=60
-        )
+        # Use SimulateGameTool directly
+        game_tool = SimulateGameTool()
+        result = game_tool.run(home_team=home_team, away_team=away_team)
         print("Game simulation completed successfully")
         
         return jsonify({"result": result})
@@ -249,25 +177,12 @@ def simulate_daily():
     try:
         print("\nAttempting to simulate daily games")
         
-        # Check OpenAI API key
-        openai_key = os.getenv('OPENAI_API_KEY')
-        if not openai_key:
-            print("OpenAI API key not found in environment")
-            raise Exception("OpenAI API key not set. Please add OPENAI_API_KEY to environment variables.")
-        else:
-            print("OpenAI API key verified")
-        
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
-        if simulation_agency is None:
-            raise Exception("Agency not initialized. Please check OpenAI API key and try again.")
-            
-        print("Starting daily simulation request...")
-        result = simulation_agency.get_agents()[0].send_message(
-            "Simulate all NBA games today",
-            timeout=60
-        )
+        # Use SimulateDailyGamesTool directly
+        daily_tool = SimulateDailyGamesTool()
+        result = daily_tool.run()
         print("Daily games simulation completed successfully")
         
         return jsonify({"result": result})

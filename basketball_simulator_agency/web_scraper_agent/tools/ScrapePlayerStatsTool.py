@@ -4,6 +4,7 @@ import os
 import pandas as pd
 import requests
 import time
+import csv
 
 class ScrapePlayerStatsTool(BaseTool):
     """
@@ -15,9 +16,19 @@ class ScrapePlayerStatsTool(BaseTool):
         description="Path where the CSV file will be saved"
     )
 
-    def run(self) -> str:
-        """Run the player stats scraping tool."""
+    def run(self):
+        """Scrape player statistics from ESPN."""
         try:
+            # Create output file
+            with open('nba_player_stats.csv', 'w', newline='', encoding='utf-8') as f:  # Remove data/ prefix
+                writer = csv.writer(f)
+                writer.writerow([
+                    'name', 'games_played', 'minutes_per_game', 'points_per_game',
+                    'rebounds_per_game', 'assists_per_game', 'steals_per_game',
+                    'blocks_per_game', 'field_goal_percentage', 'three_point_percentage',
+                    'free_throw_percentage', 'turnovers_per_game'
+                ])
+            
             # ESPN's internal API endpoint for player stats
             url = "https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/statistics/byathlete?region=us&lang=en&contentorigin=espn&isqualified=true&page=1&limit=50&category=offensive&sort=offensive.avgPoints%3Adesc"
             

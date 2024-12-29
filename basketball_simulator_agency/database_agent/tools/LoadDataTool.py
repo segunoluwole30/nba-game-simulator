@@ -14,15 +14,15 @@ class LoadDataTool(BaseDatabaseTool):
     Handles both team and player data with proper relationships.
     """
     teams_file: str = Field(
-        default="data/nba_active_players.csv",
+        default="nba_active_players.csv",
         description="Path to the CSV file containing team data"
     )
     players_file: str = Field(
-        default="data/nba_active_players.csv",
+        default="nba_active_players.csv",
         description="Path to the CSV file containing player data"
     )
     stats_file: str = Field(
-        default="data/nba_player_stats.csv",
+        default="nba_player_stats.csv",
         description="Path to the CSV file containing player statistics"
     )
 

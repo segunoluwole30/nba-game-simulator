@@ -53,9 +53,14 @@ try:
         "GameSimulationAgent": {}  # Empty dict since no other agents to communicate with
     }
     
+    # Create a mapping of agent names to instances
+    agent_instances = {
+        "GameSimulationAgent": game_agent
+    }
+    
     simulation_agency = Agency(
         agency_chart,
-        game_agent,
+        agent_instances,
         temperature=0.7
     )
     print("Agency initialized successfully")

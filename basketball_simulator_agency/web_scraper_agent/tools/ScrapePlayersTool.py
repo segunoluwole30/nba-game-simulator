@@ -50,14 +50,11 @@ class ScrapePlayersTool(BaseTool):
         if team_name not in self.NBA_TEAMS:
             raise ValueError(f"Invalid team name: {team_name}")
 
-        # Create data directory if it doesn't exist
-        os.makedirs('data', exist_ok=True)
-
         # Initialize or append to CSV file
-        file_exists = os.path.isfile('data/nba_active_players.csv')
+        file_exists = os.path.isfile('nba_active_players.csv')
         mode = 'a' if file_exists else 'w'
         
-        with open('data/nba_active_players.csv', mode, newline='', encoding='utf-8') as f:
+        with open('nba_active_players.csv', mode, newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             if not file_exists:
                 writer.writerow(['name', 'current_team', 'position', 'number', 'height', 'weight', 'age', 'college'])

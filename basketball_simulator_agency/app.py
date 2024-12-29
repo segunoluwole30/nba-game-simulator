@@ -42,6 +42,22 @@ except Exception as e:
     print(f"Error during initialization: {str(e)}")
     print("Continuing with partial initialization...")
 
+# Create a single Agency instance at startup
+try:
+    print("Initializing Agency...")
+    simulation_agency = Agency(
+        agents=[GameSimulationAgent()],
+        agency_config={
+            "temperature": 0.7,
+            "request_timeout": 120,
+            "max_tokens": 1000
+        }
+    )
+    print("Agency initialized successfully")
+except Exception as e:
+    print(f"Warning: Could not initialize Agency: {str(e)}")
+    simulation_agency = None
+
 @app.route('/')
 def index():
     """Render the main page with team options."""
@@ -167,12 +183,14 @@ def simulate_game(home_team, away_team):
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
-        print("Creating Agency and GameSimulationAgent...")
-        agency = Agency([GameSimulationAgent()])
-        print("Created Agency successfully")
-        
+        if simulation_agency is None:
+            raise Exception("Agency not initialized. Please check OpenAI API key and try again.")
+            
         print("Starting simulation request...")
-        result = agency.get_agents()[0].send_message(f"Simulate a game between {home_team} and {away_team}")
+        result = simulation_agency.get_agents()[0].send_message(
+            f"Simulate a game between {home_team} and {away_team}",
+            timeout=60
+        )
         print("Game simulation completed successfully")
         
         return jsonify({"result": result})
@@ -199,12 +217,14 @@ def simulate_daily():
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
-        print("Creating Agency and GameSimulationAgent...")
-        agency = Agency([GameSimulationAgent()])
-        print("Created Agency successfully")
-        
+        if simulation_agency is None:
+            raise Exception("Agency not initialized. Please check OpenAI API key and try again.")
+            
         print("Starting daily simulation request...")
-        result = agency.get_agents()[0].send_message("Simulate all NBA games today")
+        result = simulation_agency.get_agents()[0].send_message(
+            "Simulate all NBA games today",
+            timeout=60
+        )
         print("Daily games simulation completed successfully")
         
         return jsonify({"result": result})

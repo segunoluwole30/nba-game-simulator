@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: nba-game-simulator
+    env: python
+    buildCommand: pip install -r basketball_simulator_agency/requirements.txt
+    startCommand: cd basketball_simulator_agency && gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.8.0
+      - key: DB_NAME
+        fromDatabase:
+          name: nba-simulator-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: nba-simulator-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: nba-simulator-db
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: nba-simulator-db
+          property: host
+      - key: RENDER
+        value: true
+
+databases:
+  - name: nba-simulator-db
+    databaseName: basketball_sim
+    plan: free 

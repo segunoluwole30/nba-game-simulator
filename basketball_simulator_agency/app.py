@@ -46,23 +46,54 @@ except Exception as e:
 # Create a single Agency instance at startup
 try:
     print("Initializing Agency...")
-    game_agent = GameSimulationAgent()
-    db_agent = DatabaseAgent()
-    web_scraper = WebScraperAgent()
+    
+    # Verify OpenAI API key first
+    openai_key = os.getenv('OPENAI_API_KEY')
+    if not openai_key:
+        raise Exception("OpenAI API key not set. Please add OPENAI_API_KEY to environment variables.")
+    print("OpenAI API key verified")
+    
+    # Initialize agents with error handling
+    try:
+        game_agent = GameSimulationAgent()
+        print("GameSimulationAgent initialized")
+    except Exception as e:
+        print(f"Error initializing GameSimulationAgent: {str(e)}")
+        raise
+        
+    try:
+        db_agent = DatabaseAgent()
+        print("DatabaseAgent initialized")
+    except Exception as e:
+        print(f"Error initializing DatabaseAgent: {str(e)}")
+        raise
+        
+    try:
+        web_scraper = WebScraperAgent()
+        print("WebScraperAgent initialized")
+    except Exception as e:
+        print(f"Error initializing WebScraperAgent: {str(e)}")
+        raise
     
     # Initialize agency with communication flows
-    simulation_agency = Agency(
-        [
-            game_agent,  # Make GameSimulationAgent the entry point
-            [game_agent, db_agent],  # Game simulation can request data from database
-            [db_agent, web_scraper],  # Database can request fresh data from scraper if needed
-        ],
-        shared_instructions="agency_manifesto.md",
-        temperature=0.7
-    )
-    print("Agency initialized successfully")
+    try:
+        simulation_agency = Agency(
+            [
+                game_agent,  # Make GameSimulationAgent the entry point
+                [game_agent, db_agent],  # Game simulation can request data from database
+                [db_agent, web_scraper],  # Database can request fresh data from scraper if needed
+            ],
+            shared_instructions="agency_manifesto.md",
+            temperature=0.7
+        )
+        print("Agency initialized successfully")
+    except Exception as e:
+        print(f"Error creating Agency with communication flows: {str(e)}")
+        raise
+        
 except Exception as e:
     print(f"Warning: Could not initialize Agency: {str(e)}")
+    print("Make sure OPENAI_API_KEY is set and valid")
     simulation_agency = None
 
 @app.route('/')

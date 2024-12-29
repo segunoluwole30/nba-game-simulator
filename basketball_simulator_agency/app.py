@@ -11,7 +11,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    """Render the main page with team options."""
+    try:
+        # Get list of teams from ScrapePlayersTool
+        scraper = ScrapePlayersTool()
+        teams = scraper.get_teams()
+        return render_template('index.html', teams=teams)
+    except Exception as e:
+        print(f"Error getting teams: {str(e)}")
+        return render_template('index.html', teams=[])
 
 # Print environment variables for debugging
 print("=== Environment Variables ===")

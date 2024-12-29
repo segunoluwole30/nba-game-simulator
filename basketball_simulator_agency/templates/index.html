@@ -168,12 +168,8 @@
                 $('#results').hide();
 
                 $.ajax({
-                    url: '/simulate',
-                    method: 'POST',
-                    data: {
-                        home_team: homeTeam,
-                        away_team: awayTeam
-                    },
+                    url: `/simulate_game/${encodeURIComponent(homeTeam)}/${encodeURIComponent(awayTeam)}`,
+                    method: 'GET',
                     success: function (response) {
                         $('.loading').hide();
                         $('#results').show().html(`<pre>${response.result}</pre>`);
@@ -191,7 +187,7 @@
 
                 $.ajax({
                     url: '/simulate_daily',
-                    method: 'POST',
+                    method: 'GET',
                     success: function (response) {
                         $('.loading').hide();
                         if (response.error) {

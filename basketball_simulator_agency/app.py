@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, jsonify, request
 from basketball_simulator_agency.game_simulation_agent.game_simulation_agent import GameSimulationAgent
 from basketball_simulator_agency.database_agent.database_agent import DatabaseAgent
+from basketball_simulator_agency.web_scraper_agent.web_scraper_agent import WebScraperAgent
 from basketball_simulator_agency.database_agent.tools.CreateSchemasTool import CreateSchemasTool
 from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayersTool import ScrapePlayersTool
 from basketball_simulator_agency.database_agent.tools.LoadDataTool import LoadDataTool
@@ -46,8 +47,21 @@ except Exception as e:
 try:
     print("Initializing Agency...")
     game_agent = GameSimulationAgent()
+    database_agent = DatabaseAgent()
+    web_scraper_agent = WebScraperAgent()
+    
+    # Define the agency chart showing how agents interact
+    agency_chart = {
+        game_agent: {
+            database_agent: "Request player statistics and team information"
+        },
+        database_agent: {
+            web_scraper_agent: "Request fresh player data and statistics"
+        }
+    }
+    
     simulation_agency = Agency(
-        game_agent,
+        agency_chart,
         temperature=0.7
     )
     print("Agency initialized successfully")

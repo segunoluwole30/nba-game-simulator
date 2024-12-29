@@ -156,23 +156,31 @@ def simulate_game(home_team, away_team):
         print(f"\nAttempting to simulate game: {home_team} vs {away_team}")
         
         # Check OpenAI API key
-        if not os.getenv('OPENAI_API_KEY'):
+        openai_key = os.getenv('OPENAI_API_KEY')
+        if not openai_key:
+            print("OpenAI API key not found in environment")
             raise Exception("OpenAI API key not set. Please add OPENAI_API_KEY to environment variables.")
+        else:
+            print("OpenAI API key verified")
         
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
+        print("Creating GameSimulationAgent...")
         game_agent = GameSimulationAgent()
-        print("Created GameSimulationAgent")
+        print("Created GameSimulationAgent successfully")
+        
+        print("Sending simulation request...")
         result = game_agent.handle_request(f"Simulate a game between {home_team} and {away_team}")
-        print("Game simulation completed")
+        print("Game simulation completed successfully")
+        
         return jsonify({"result": result})
     except Exception as e:
         print(f"Error in simulate_game: {str(e)}")
         print(f"Error type: {type(e)}")
         import traceback
-        print(f"Traceback: {traceback.format_exc()}")
-        return jsonify({"error": str(e)}), 500
+        print(f"Full traceback:\n{traceback.format_exc()}")
+        return jsonify({"error": f"Error simulating game: {str(e)}"}), 500
 
 @app.route('/simulate_daily')
 def simulate_daily():
@@ -180,23 +188,31 @@ def simulate_daily():
         print("\nAttempting to simulate daily games")
         
         # Check OpenAI API key
-        if not os.getenv('OPENAI_API_KEY'):
+        openai_key = os.getenv('OPENAI_API_KEY')
+        if not openai_key:
+            print("OpenAI API key not found in environment")
             raise Exception("OpenAI API key not set. Please add OPENAI_API_KEY to environment variables.")
+        else:
+            print("OpenAI API key verified")
         
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
+        print("Creating GameSimulationAgent...")
         game_agent = GameSimulationAgent()
-        print("Created GameSimulationAgent")
+        print("Created GameSimulationAgent successfully")
+        
+        print("Sending daily simulation request...")
         result = game_agent.handle_request("Simulate all NBA games today")
-        print("Daily games simulation completed")
+        print("Daily games simulation completed successfully")
+        
         return jsonify({"result": result})
     except Exception as e:
         print(f"Error in simulate_daily: {str(e)}")
         print(f"Error type: {type(e)}")
         import traceback
-        print(f"Traceback: {traceback.format_exc()}")
-        return jsonify({"error": str(e)}), 500
+        print(f"Full traceback:\n{traceback.format_exc()}")
+        return jsonify({"error": f"Error simulating daily games: {str(e)}"}), 500
 
 @app.route('/scrape_stats', methods=['POST'])
 def scrape_stats():

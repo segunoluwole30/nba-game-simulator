@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, jsonify
-from game_simulation_agent.tools.SimulateGameTool import SimulateGameTool
-from game_simulation_agent.tools.SimulateDailyGamesTool import SimulateDailyGamesTool
-from database_agent.tools.QueryTeamsTool import QueryTeamsTool
-from database_agent.tools.CreateSchemasTool import CreateSchemasTool
-from web_scraper_agent.tools.ScrapeTeamsTool import ScrapeTeamsTool
-from web_scraper_agent.tools.ScrapePlayersTool import ScrapePlayersTool
-from database_agent.tools.LoadDataTool import LoadDataTool
+from basketball_simulator_agency.game_simulation_agent.tools.SimulateGameTool import SimulateGameTool
+from basketball_simulator_agency.game_simulation_agent.tools.SimulateDailyGamesTool import SimulateDailyGamesTool
+from basketball_simulator_agency.database_agent.tools.QueryTeamsTool import QueryTeamsTool
+from basketball_simulator_agency.database_agent.tools.CreateSchemasTool import CreateSchemasTool
+from basketball_simulator_agency.web_scraper_agent.tools.ScrapeTeamsTool import ScrapeTeamsTool
+from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayersTool import ScrapePlayersTool
+from basketball_simulator_agency.database_agent.tools.LoadDataTool import LoadDataTool
 import os
 
 app = Flask(__name__)

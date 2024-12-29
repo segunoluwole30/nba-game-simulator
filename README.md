@@ -5,9 +5,9 @@ A Python-based basketball simulation system that uses real NBA data to create re
 ## Features
 
 - **Web Scraping**: Automatically fetches current NBA data
-  - Team rosters and information
+  - Team rosters and information from ESPN
   - Player statistics and biographical data
-  - Data from basketball-reference.com and ESPN
+  - Daily game schedules
 
 - **Database Management**: PostgreSQL database for storing and managing data
   - Team and player information
@@ -16,8 +16,21 @@ A Python-based basketball simulation system that uses real NBA data to create re
 
 - **Game Simulation**: Realistic basketball game simulation
   - Player-specific performance based on real statistics
+  - Accurate team minute distribution (240 minutes per team in regulation)
+  - Support for overtime periods (1-4 OT periods)
   - Detailed box scores for each game
   - Team-based gameplay dynamics
+
+## Game Simulation Features
+- Realistic minute distribution (exactly 240 team minutes in regulation)
+- Overtime handling (adds 5 minutes per OT period)
+- Statistics scaled based on minutes played
+- Box scores show:
+  - Player name and position
+  - Minutes played (whole numbers)
+  - Points, rebounds, assists
+  - Steals, blocks, turnovers
+  - Overtime periods in final score (e.g., "2OT" for double overtime)
 
 ## Prerequisites
 
@@ -64,6 +77,7 @@ python3 agency.py
    - "Scrape the latest NBA data"
    - "Load the data into the database"
    - "Simulate a game between Lakers and Celtics"
+   - "Simulate all of today's NBA games"
 
 ### Method 2: Direct Tool Usage
 You can also use the tools directly in Python:
@@ -99,37 +113,44 @@ game_tool = SimulateGameTool(home_team="Boston Celtics", away_team="Los Angeles 
 print(game_tool.run())
 ```
 
+5. Simulate all of today's games:
+```python
+from basketball_simulator_agency.game_simulation_agent.tools.SimulateDailyGamesTool import SimulateDailyGamesTool
+tool = SimulateDailyGamesTool()
+print(tool.run())
+```
+
 ### Sample Output
 When you simulate a game, you'll get output similar to this:
 
 ```
-Final Score: Boston Celtics 112 - 108 Los Angeles Lakers
+Final Score: Boston Celtics 115 - Los Angeles Lakers 112 (2OTs)
 
 Boston Celtics Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Jayson Tatum             SF    36.5  28   8    5    2    1    3   
-Jaylen Brown             SG    34.2  24   6    4    1    0    2   
-Kristaps Porzingis       C     32.1  18   9    2    0    3    1   
-Derrick White            PG    31.8  15   4    6    2    1    2   
-Jrue Holiday             PG    30.4  12   5    8    2    0    2   
-Sam Hauser              SF    18.2  8    3    1    0    0    1   
-Al Horford              C     16.5  5    6    2    0    1    0   
-Luke Kornet             C     12.3  2    2    0    0    1    1   
+Jayson Tatum             SF    42    32   9    6    2    1    3   
+Jaylen Brown             SG    40    28   6    4    1    0    2   
+Kristaps Porzingis       C     38    22   11   2    0    3    1   
+Derrick White            PG    35    15   4    8    2    1    2   
+Jrue Holiday             PG    32    12   5    9    2    0    2   
+Sam Hauser              SF    20    8    3    1    0    0    1   
+Al Horford              C     18    5    6    2    0    1    0   
+Luke Kornet             C     15    2    2    0    0    1    1   
 
 Los Angeles Lakers Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-LeBron James             SF    38.2  32   9    8    1    1    2   
-Anthony Davis            PF    36.5  26   12   3    1    4    3   
-D'Angelo Russell         PG    32.4  16   3    7    2    0    3   
-Austin Reaves            SG    30.8  14   4    5    1    0    2   
-Rui Hachimura           PF    24.6  12   5    1    0    0    1   
-Christian Wood          C     18.4  4    6    0    0    1    1   
-Gabe Vincent            PG    16.2  4    1    3    1    0    1   
-Taurean Prince          SF    14.9  0    2    1    0    0    0   
+LeBron James             SF    44    36   11   9    1    1    2   
+Anthony Davis            PF    42    28   14   3    1    4    3   
+D'Angelo Russell         PG    35    18   3    8    2    0    3   
+Austin Reaves            SG    32    16   4    6    1    0    2   
+Rui Hachimura           PF    25    12   5    1    0    0    1   
+Christian Wood          C     20    4    6    0    0    1    1   
+Gabe Vincent            PG    18    4    1    3    1    0    1   
+Taurean Prince          SF    14    2    2    1    0    0    0   
 ```
 
 ## Project Structure
@@ -164,15 +185,13 @@ Required environment variables in `.env`:
 
 This is a personal project for educational purposes only. The project:
 - Uses the [agency-swarm](https://github.com/VRSEN/agency-swarm) framework - all rights belong to their respective owners
-- Accesses publicly available data from ESPN and basketball-reference.com
-- Is not affiliated with, endorsed, or sponsored by the NBA, ESPN, or basketball-reference.com
+- Accesses publicly available data from ESPN
+- Is not affiliated with, endorsed, or sponsored by the NBA or ESPN
 - Should not be used for commercial purposes
 
 ## Acknowledgments
 
 - Built using [agency-swarm](https://github.com/VRSEN/agency-swarm) framework
-- Data sourced from:
-  - ESPN's publicly available data
-  - basketball-reference.com
+- Data sourced from ESPN's publicly available data
 - Inspired by real NBA statistics and gameplay
 - This project is for educational purposes only 

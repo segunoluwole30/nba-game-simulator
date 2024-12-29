@@ -34,20 +34,36 @@ def init_schema():
             'message': f'Error creating schema: {str(e)}'
         }), 500
 
-@app.route('/scrape_data', methods=['POST'])
-def scrape_data():
-    """Scrape teams and players data."""
+@app.route('/scrape_team/<team_name>', methods=['POST'])
+def scrape_team(team_name):
+    """Scrape a single team's roster."""
     try:
         players_tool = ScrapePlayersTool()
-        players_tool.run()
+        players_tool.scrape_team(team_name)
         return jsonify({
             'status': 'success',
-            'message': 'Data scraped successfully'
+            'message': f'Successfully scraped {team_name} roster'
         })
     except Exception as e:
         return jsonify({
             'status': 'error',
-            'message': f'Error scraping data: {str(e)}'
+            'message': f'Error scraping {team_name}: {str(e)}'
+        }), 500
+
+@app.route('/get_teams', methods=['GET'])
+def get_teams():
+    """Get list of NBA teams to scrape."""
+    try:
+        players_tool = ScrapePlayersTool()
+        teams = players_tool.get_teams()
+        return jsonify({
+            'status': 'success',
+            'teams': teams
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Error getting teams: {str(e)}'
         }), 500
 
 @app.route('/load_data', methods=['POST'])

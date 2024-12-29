@@ -1,152 +1,110 @@
-from agency_swarm.tools import BaseTool
-from pydantic import Field
-from typing import ClassVar, Dict, List
 import os
-import pandas as pd
+import csv
 import requests
 from bs4 import BeautifulSoup
-import time
+from typing import ClassVar, Dict
+from agency_swarm.tools import BaseTool
 
 class ScrapePlayersTool(BaseTool):
-    """Tool for scraping NBA team rosters and player information."""
+    """Tool for scraping NBA players from ESPN."""
     
     NBA_TEAMS: ClassVar[Dict[str, str]] = {
-        'Boston Celtics': 'BOS',
-        'Brooklyn Nets': 'BKN',
-        'New York Knicks': 'NYK',
-        'Philadelphia 76ers': 'PHI',
-        'Toronto Raptors': 'TOR',
-        'Chicago Bulls': 'CHI',
-        'Cleveland Cavaliers': 'CLE',
-        'Detroit Pistons': 'DET',
-        'Indiana Pacers': 'IND',
-        'Milwaukee Bucks': 'MIL',
-        'Atlanta Hawks': 'ATL',
-        'Charlotte Hornets': 'CHA',
-        'Miami Heat': 'MIA',
-        'Orlando Magic': 'ORL',
-        'Washington Wizards': 'WAS',
-        'Denver Nuggets': 'DEN',
-        'Minnesota Timberwolves': 'MIN',
-        'Oklahoma City Thunder': 'OKC',
-        'Portland Trail Blazers': 'POR',
-        'Utah Jazz': 'UTAH',
-        'Golden State Warriors': 'GSW',
-        'Los Angeles Clippers': 'LAC',
-        'Los Angeles Lakers': 'LAL',
-        'Phoenix Suns': 'PHX',
-        'Sacramento Kings': 'SAC',
-        'Dallas Mavericks': 'DAL',
-        'Houston Rockets': 'HOU',
-        'Memphis Grizzlies': 'MEM',
-        'New Orleans Pelicans': 'NO',
-        'San Antonio Spurs': 'SAS'
+        'Atlanta Hawks': 'atl/atlanta-hawks',
+        'Boston Celtics': 'bos/boston-celtics',
+        'Brooklyn Nets': 'bkn/brooklyn-nets',
+        'Charlotte Hornets': 'cha/charlotte-hornets',
+        'Chicago Bulls': 'chi/chicago-bulls',
+        'Cleveland Cavaliers': 'cle/cleveland-cavaliers',
+        'Dallas Mavericks': 'dal/dallas-mavericks',
+        'Denver Nuggets': 'den/denver-nuggets',
+        'Detroit Pistons': 'det/detroit-pistons',
+        'Golden State Warriors': 'gs/golden-state-warriors',
+        'Houston Rockets': 'hou/houston-rockets',
+        'Indiana Pacers': 'ind/indiana-pacers',
+        'LA Clippers': 'lac/la-clippers',
+        'Los Angeles Lakers': 'lal/los-angeles-lakers',
+        'Memphis Grizzlies': 'mem/memphis-grizzlies',
+        'Miami Heat': 'mia/miami-heat',
+        'Milwaukee Bucks': 'mil/milwaukee-bucks',
+        'Minnesota Timberwolves': 'min/minnesota-timberwolves',
+        'New Orleans Pelicans': 'no/new-orleans-pelicans',
+        'New York Knicks': 'ny/new-york-knicks',
+        'Oklahoma City Thunder': 'okc/oklahoma-city-thunder',
+        'Orlando Magic': 'orl/orlando-magic',
+        'Philadelphia 76ers': 'phi/philadelphia-76ers',
+        'Phoenix Suns': 'phx/phoenix-suns',
+        'Portland Trail Blazers': 'por/portland-trail-blazers',
+        'Sacramento Kings': 'sac/sacramento-kings',
+        'San Antonio Spurs': 'sa/san-antonio-spurs',
+        'Toronto Raptors': 'tor/toronto-raptors',
+        'Utah Jazz': 'utah/utah-jazz',
+        'Washington Wizards': 'wsh/washington-wizards'
     }
 
-    output_path: str = Field(
-        default="data/nba_active_players.csv",
-        description="Path where the CSV file will be saved"
-    )
+    def get_teams(self):
+        """Get list of NBA teams."""
+        return list(self.NBA_TEAMS.keys())
 
-    def run(self) -> str:
-        """Run the player scraping tool."""
-        try:
-            all_players = []
+    def scrape_team(self, team_name):
+        """Scrape a single team's roster."""
+        if team_name not in self.NBA_TEAMS:
+            raise ValueError(f"Invalid team name: {team_name}")
+
+        # Create data directory if it doesn't exist
+        os.makedirs('data', exist_ok=True)
+
+        # Initialize or append to CSV file
+        file_exists = os.path.isfile('data/nba_active_players.csv')
+        mode = 'a' if file_exists else 'w'
+        
+        with open('data/nba_active_players.csv', mode, newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            if not file_exists:
+                writer.writerow(['name', 'current_team', 'position', 'number', 'height', 'weight', 'age', 'college'])
+
+            print(f"Scraping {team_name} roster...")
+            team_path = self.NBA_TEAMS[team_name]
+            url = f"https://www.espn.com/nba/team/roster/_/name/{team_path}"
             
-            # Scrape each team's roster
-            for team_name, team_abbrev in self.NBA_TEAMS.items():
-                print(f"\nScraping {team_name} roster...")
-                url = f"https://www.espn.com/nba/team/roster/_/name/{team_abbrev.lower()}"
-                
-                headers = {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-                }
-                
-                response = requests.get(url, headers=headers)
-                if response.status_code != 200:
-                    print(f"Error fetching {team_name} roster: {response.status_code}")
-                    continue
-                
-                soup = BeautifulSoup(response.content, 'html.parser')
-                roster_table = soup.find('table', class_='Table')
-                
-                if not roster_table:
-                    print(f"No roster table found for {team_name}")
-                    continue
-                
-                # Find all player rows
-                player_rows = roster_table.find_all('tr', class_='Table__TR')
-                
-                # Find the header row to determine column positions
-                header_row = roster_table.find('tr', class_='Table__TR Table__even')
-                if header_row:
-                    headers = [th.text.strip().lower() for th in header_row.find_all('th')]
-                    college_idx = next((i for i, h in enumerate(headers) if 'college' in h), 7)
-                else:
-                    college_idx = 7
-                
-                for row in player_rows:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+            
+            response = requests.get(url, headers=headers)
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Find all player rows
+            player_rows = soup.find_all('tr', class_='Table__TR')
+            
+            for row in player_rows:
+                cells = row.find_all('td')
+                if len(cells) >= 4:  # Make sure row has enough cells
                     try:
-                        # Skip header rows
-                        if row.find('th'):
-                            continue
-                            
-                        cells = row.find_all('td')
-                        if len(cells) < 8:  # Make sure we have enough cells
-                            continue
-                            
-                        # Extract player info
-                        name_cell = cells[1].find('a')
-                        if not name_cell:
-                            continue
-                            
-                        name = name_cell.text.strip()
-                        position = cells[2].text.strip()  # Position is in column 3
-                        age = cells[3].text.strip()      # Age is in column 4
-                        height = cells[4].text.strip()    # Height is in column 5
-                        weight = cells[5].text.strip()    # Weight is in column 6
-                        college = cells[6].text.strip() if len(cells) > 6 else None  # College is in column 7
+                        name = cells[1].get_text(strip=True)
+                        position = cells[2].get_text(strip=True)
+                        number = cells[0].get_text(strip=True)
                         
-                        # Try to convert age to integer, skip row if age is invalid
-                        try:
-                            age_value = int(age) if age and age != '--' else None
-                        except ValueError:
-                            print(f"Skipping {name} - Invalid age value: {age}")
-                            continue
-                        
-                        player_info = {
-                            'name': name,
-                            'current_team': team_name,
-                            'position': position,
-                            'height': height,
-                            'weight': weight.replace(' lbs', ''),  # Remove 'lbs' suffix
-                            'age': age_value,
-                            'colleges': college if college and college != '--' else None
-                        }
-                        
-                        all_players.append(player_info)
+                        # Write player data
+                        writer.writerow([name, team_name, position, number, '', '', '', ''])
                         print(f"Added {name} from {team_name}")
-                        
                     except Exception as e:
-                        print(f"Error processing player row: {str(e)}")
+                        print(f"Error processing player: {str(e)}")
                         continue
-                
-                # Be nice to ESPN's servers
-                time.sleep(2)
-            
-            # Save all players to CSV
-            df = pd.DataFrame(all_players)
-            os.makedirs(os.path.dirname(self.output_path), exist_ok=True)
-            df.to_csv(self.output_path, index=False)
-            
-            print(f"\nFinished! Scraped {len(all_players)} players from {len(self.NBA_TEAMS)} teams")
-            return f"Successfully scraped {len(all_players)} players and saved to {self.output_path}"
-            
-        except Exception as e:
-            error_msg = f"Error scraping players: {str(e)}"
-            print(error_msg)
-            return error_msg
 
-if __name__ == "__main__":
-    tool = ScrapePlayersTool()
-    print(tool.run()) 
+    def run(self):
+        """Create/update the active players CSV file."""
+        # Create data directory if it doesn't exist
+        os.makedirs('data', exist_ok=True)
+        
+        # Create/overwrite the CSV file
+        with open('data/nba_active_players.csv', 'w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow(['name', 'current_team', 'position', 'number', 'height', 'weight', 'age', 'college'])
+        
+        # Scrape each team's roster
+        for team_name in self.NBA_TEAMS:
+            try:
+                self.scrape_team(team_name)
+            except Exception as e:
+                print(f"Error scraping {team_name}: {str(e)}")
+                continue 

@@ -75,6 +75,11 @@ try:
         print(f"Error initializing WebScraperAgent: {str(e)}")
         raise
     
+    # Get the absolute path to the agency manifesto
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    manifesto_path = os.path.join(current_dir, "agency_manifesto.md")
+    print(f"Using manifesto at: {manifesto_path}")
+    
     # Initialize agency with communication flows
     try:
         simulation_agency = Agency(
@@ -83,7 +88,7 @@ try:
                 [game_agent, db_agent],  # Game simulation can request data from database
                 [db_agent, web_scraper],  # Database can request fresh data from scraper if needed
             ],
-            shared_instructions="agency_manifesto.md",
+            shared_instructions=manifesto_path,
             temperature=0.7
         )
         print("Agency initialized successfully")

@@ -60,10 +60,8 @@ try:
         }
     }
     
-    agents = [game_agent, database_agent, web_scraper_agent]
     simulation_agency = Agency(
-        agency_chart,
-        agents=agents,
+        game_agent, database_agent, web_scraper_agent,
         temperature=0.7
     )
     print("Agency initialized successfully")

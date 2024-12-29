@@ -45,9 +45,10 @@ except Exception as e:
 # Create a single Agency instance at startup
 try:
     print("Initializing Agency...")
+    game_agent = GameSimulationAgent()
     simulation_agency = Agency(
-        agents=[GameSimulationAgent()],
-        agency_config={
+        game_agent,
+        config={
             "temperature": 0.7,
             "request_timeout": 120,
             "max_tokens": 1000

@@ -48,7 +48,13 @@ try:
     print("Initializing Agency...")
     game_agent = GameSimulationAgent()
     
+    # Define a simple agency chart for a single agent
+    agency_chart = {
+        "GameSimulationAgent": {}  # Empty dict since no other agents to communicate with
+    }
+    
     simulation_agency = Agency(
+        agency_chart,
         game_agent,
         temperature=0.7
     )

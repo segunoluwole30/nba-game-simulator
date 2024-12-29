@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, jsonify
-from game_simulation_agent.game_simulation_agent import GameSimulationAgent
-from database_agent.database_agent import DatabaseAgent
+from basketball_simulator_agency.game_simulation_agent.game_simulation_agent import GameSimulationAgent
+from basketball_simulator_agency.database_agent.database_agent import DatabaseAgent
 
 app = Flask(__name__)
 

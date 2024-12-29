@@ -10,6 +10,14 @@ import os
 
 app = Flask(__name__)
 
+# Print environment variables at startup (excluding sensitive info)
+print("=== Environment Variables ===")
+print(f"RENDER: {os.getenv('RENDER')}")
+print(f"DB_HOST: {os.getenv('DB_HOST')}")
+print(f"DB_NAME: {os.getenv('DB_NAME')}")
+print(f"DB_USER: {os.getenv('DB_USER')}")
+print("=== End Environment Variables ===")
+
 # Configure for production
 if os.environ.get('RENDER'):
     app.config.update(

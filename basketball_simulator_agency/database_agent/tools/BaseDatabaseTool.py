@@ -14,12 +14,21 @@ class BaseDatabaseTool(BaseTool):
             db_user = os.getenv('DB_USER', 'segun')
             db_password = os.getenv('DB_PASSWORD', '')
             
+            # Print connection details (excluding password)
+            print(f"Attempting database connection with:")
+            print(f"Host: {db_host}")
+            print(f"Database: {db_name}")
+            print(f"User: {db_user}")
+            
             conn = psycopg2.connect(
                 host=db_host,
                 database=db_name,
                 user=db_user,
                 password=db_password
             )
+            print("Database connection successful!")
             return conn
         except Exception as e:
-            raise Exception(f"Failed to connect to database: {str(e)}") 
+            error_msg = f"Failed to connect to database: {str(e)}"
+            print(error_msg)  # Print the error
+            raise Exception(error_msg) 

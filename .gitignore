@@ -20,26 +20,34 @@ wheels/
 .installed.cfg
 *.egg
 
-# Environment variables
+# Virtual Environment
 .env
+.venv
+env/
+venv/
+ENV/
 
 # IDE
-.vscode/
 .idea/
+.vscode/
 *.swp
 *.swo
 
-# Database
-*.sqlite3
-*.db
-
-# Logs
+# Local development
 *.log
-
-# OS
 .DS_Store
-Thumbs.db
+data/*.csv
+nba_active_players.csv
+nba_player_stats.csv
+daily_simulations.txt
 
-# Project specific
-settings.json
+# Render specific
+.render/
+
+# Debug files
 debug_response.json
+test_*.py
+
+# Database
+*.db
+*.sqlite3

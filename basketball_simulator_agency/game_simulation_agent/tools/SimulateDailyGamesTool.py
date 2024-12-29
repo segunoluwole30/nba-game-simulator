@@ -132,30 +132,33 @@ class SimulateDailyGamesTool(BaseTool):
             # Create output directory if it doesn't exist
             os.makedirs(os.path.dirname(self.output_file), exist_ok=True)
 
-            # Prepare the output file
+            # Prepare the output
+            today = datetime.now().strftime("%A, %B %d, %Y")
+            result = f"NBA Game Simulations for {today}\n"
+            result += "=" * 80 + "\n\n"
+
+            # Simulate each game
+            for away_team, home_team in games:
+                result += f"Game: {away_team} @ {home_team}\n"
+                result += "-" * 80 + "\n"
+                
+                # Create a new simulator instance for each game with proper parameters
+                simulator = SimulateGameTool(
+                    home_team=home_team,
+                    away_team=away_team
+                )
+                game_result = simulator.run()
+                
+                # Add game results
+                result += game_result
+                result += "\n" + "=" * 80 + "\n\n"
+
+            # Save to file
             with open(self.output_file, 'w') as f:
-                # Write header
-                today = datetime.now().strftime("%A, %B %d, %Y")
-                f.write(f"NBA Game Simulations for {today}\n")
-                f.write("=" * 80 + "\n\n")
+                f.write(result)
 
-                # Simulate each game
-                for away_team, home_team in games:
-                    f.write(f"Game: {away_team} @ {home_team}\n")
-                    f.write("-" * 80 + "\n")
-                    
-                    # Create a new simulator instance for each game with proper parameters
-                    simulator = SimulateGameTool(
-                        home_team=home_team,
-                        away_team=away_team
-                    )
-                    result = simulator.run()
-                    
-                    # Write results
-                    f.write(result)
-                    f.write("\n" + "=" * 80 + "\n\n")
-
-            return f"Successfully simulated {len(games)} games for today. Results saved to {self.output_file}"
+            # Return the actual results instead of just a success message
+            return result
 
         except Exception as e:
             return f"Error simulating daily games: {str(e)}"

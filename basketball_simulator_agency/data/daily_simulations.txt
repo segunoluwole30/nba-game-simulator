@@ -1,354 +1,354 @@
 NBA Game Simulations for Saturday, December 28, 2024
 ================================================================================
 
-Game: Philadelphia 76ers @ Utah Jazz
---------------------------------------------------------------------------------
-
-Final Score: Utah Jazz 105 - 97 Philadelphia 76ers
-
-Utah Jazz Box Score:
---------------------------------------------------------------------------------
-Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
---------------------------------------------------------------------------------
-Collin Sexton             PG    27    19   3    5    0    0    1   
-Lauri Markkanen           PF    28    15   6    1    2    0    2   
-Keyonte George            G     27    13   2    5    1    0    2   
-Walker Kessler            C     26    11   8    4    2    1    1   
-John Collins              PF    28    10   3    4    0    0    1   
-Jordan Clarkson           PG    21    10   2    6    0    0    1   
-Drew Eubanks              PF    13    10   1    3    0    1    0   
-Johnny Juzang             G     15    6    2    0    1    0    2   
-Brice Sensabaugh          F     18    6    1    0    0    0    2   
-Kyle Filipowski           F     16    4    6    1    0    0    0   
-Isaiah Collier            G     19    1    1    3    1    0    2   
-
-
-Philadelphia 76ers Box Score:
---------------------------------------------------------------------------------
-Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
---------------------------------------------------------------------------------
-Tyrese Maxey              PG    36    24   3    1    2    0    2   
-Jared McCain              G     25    15   0    2    0    1    1   
-Paul George               F     27    12   5    6    3    0    2   
-Kelly Oubre Jr.           SG    29    10   6    2    0    0    3   
-Caleb Martin              SF    27    9    10   0    0    0    0   
-Andre Drummond            C     15    8    5    3    2    0    0   
-Guerschon Yabusele        F     19    6    4    1    1    0    1   
-Eric Gordon               SG    17    5    0    1    0    1    0   
-Kyle Lowry                PG    17    4    3    3    0    0    2   
-KJ Martin                 F     17    3    4    3    0    0    1   
-Ricky Council IV          G     11    1    5    2    2    0    0   
-
-================================================================================
-
-Game: Dallas Mavericks @ Portland Trail Blazers
---------------------------------------------------------------------------------
-
-Final Score: Portland Trail Blazers 116 - 115 Dallas Mavericks
-
-Portland Trail Blazers Box Score:
---------------------------------------------------------------------------------
-Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
---------------------------------------------------------------------------------
-Deni Avdija               SF    28    19   5    3    0    0    2   
-Deandre Ayton             C     24    15   4    0    0    2    1   
-Jerami Grant              SF    31    14   2    0    0    1    0   
-Anfernee Simons           SG    28    14   5    3    1    0    3   
-Shaedon Sharpe            SG    26    13   3    0    0    0    1   
-Scoot Henderson           G     23    11   2    5    0    0    4   
-Dalano Banton             G     15    9    3    2    1    1    1   
-Donovan Clingan           C     14    7    1    2    0    1    0   
-Toumani Camara            F     25    6    2    0    0    1    1   
-Jabari Walker             F     8     4    3    2    0    0    1   
-Rayan Rupert              G     9     3    3    0    0    0    0   
-Kris Murray               F     9     1    0    0    0    0    0   
-
-
-Dallas Mavericks Box Score:
---------------------------------------------------------------------------------
-Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
---------------------------------------------------------------------------------
-Luka Doncic               PG    29    22   5    3    2    0    4   
-Daniel Gafford            C     20    17   5    0    1    1    0   
-Kyrie Irving              PG    30    15   4    1    1    0    1   
-P.J. Washington           PF    25    12   0    1    0    0    1   
-Spencer Dinwiddie         PG    18    11   1    2    0    0    0   
-Klay Thompson             SG    22    9    2    0    0    0    0   
-Quentin Grimes            SG    20    9    3    0    0    0    3   
-Naji Marshall             SF    17    8    2    3    0    0    0   
-Jaden Hardy               G     13    6    1    0    0    0    2   
-Dereck Lively II          C     19    5    4    1    1    2    0   
-Maxi Kleber               PF    16    1    4    0    0    0    1   
-Dwight Powell             C     5     0    3    0    1    0    0   
-Olivier-Maxence Prosper   F     7     0    0    0    0    0    0   
-
-================================================================================
-
 Game: Sacramento Kings @ Los Angeles Lakers
 --------------------------------------------------------------------------------
 
-Final Score: Los Angeles Lakers 91 - 117 Sacramento Kings
+Final Score: Los Angeles Lakers 110 - 99 Sacramento Kings
 
 Los Angeles Lakers Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-LeBron James              SF    33    23   9    5    0    0    4   
-Anthony Davis             PF    31    20   10   4    2    4    1   
-Austin Reaves             SG    30    15   2    5    1    2    1   
-Rui Hachimura             PF    33    9    4    4    0    0    0   
-D'Angelo Russell          PG    23    9    4    7    0    1    2   
-Max Christie              G     22    7    0    0    0    0    0   
-Gabe Vincent              PG    22    5    3    0    0    0    0   
-Dalton Knecht             G     22    3    0    0    0    0    1   
-Cam Reddish               SF    18    0    4    0    2    2    0   
-Christian Koloko          C     7     0    0    0    0    0    0   
+LeBron James              SF    35    27   8    7    2    1    4   
+Anthony Davis             PF    31    22   9    2    0    1    3   
+Austin Reaves             SG    32    18   0    2    0    0    3   
+D'Angelo Russell          PG    26    15   0    2    0    0    0   
+Rui Hachimura             PF    27    10   6    4    1    0    1   
+Cam Reddish               SF    19    8    1    0    0    0    0   
+Dalton Knecht             G     21    4    0    0    1    0    0   
+Christian Koloko          C     10    4    1    3    1    0    0   
+Gabe Vincent              PG    19    2    0    0    0    0    0   
+Max Christie              G     19    0    3    0    0    0    1   
 
 
 Sacramento Kings Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-De'Aaron Fox              PG    30    22   6    2    0    1    2   
-Domantas Sabonis          PF    29    21   11   5    0    0    1   
-Keegan Murray             SF    30    15   6    1    0    0    0   
-DeMar DeRozan             SF    32    14   5    6    1    0    1   
-Malik Monk                SG    24    14   2    1    1    1    0   
-Trey Lyles                PF    18    11   3    0    0    0    0   
-Kevin Huerter             SG    20    7    1    0    1    1    0   
-Colby Jones               G     4     5    0    0    0    1    0   
-Keon Ellis                G     20    4    3    1    1    0    0   
-Isaac Jones               C     7     3    5    4    0    0    0   
-Doug McDermott            SF    11    1    0    1    0    0    0   
-Jordan McLaughlin         PG    6     0    0    0    1    0    0   
-Alex Len                  C     7     0    1    0    0    1    0   
+De'Aaron Fox              PG    30    20   4    4    1    0    4   
+Domantas Sabonis          PF    29    16   10   3    0    1    2   
+DeMar DeRozan             SF    30    15   3    1    0    0    1   
+Malik Monk                SG    28    8    5    4    0    1    0   
+Kevin Huerter             SG    20    8    2    0    0    0    1   
+Keegan Murray             SF    31    7    9    0    0    0    1   
+Keon Ellis                G     15    7    0    1    0    1    1   
+Trey Lyles                PF    20    7    2    1    0    0    1   
+Isaac Jones               C     11    7    0    0    0    0    0   
+Doug McDermott            SF    6     3    3    1    0    0    0   
+Colby Jones               G     5     1    1    0    0    0    0   
+Jordan McLaughlin         PG    6     0    1    0    0    3    0   
+Alex Len                  C     9     0    1    0    1    0    1   
 
 ================================================================================
 
 Game: Miami Heat @ Atlanta Hawks
 --------------------------------------------------------------------------------
 
-Final Score: Atlanta Hawks 127 - 97 Miami Heat
+Final Score: Atlanta Hawks 106 - 103 Miami Heat
 
 Atlanta Hawks Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Trae Young                PG    39    24   5    13   2    0    4   
-De'Andre Hunter           SF    29    20   4    1    0    0    0   
-Dyson Daniels             G     39    18   2    0    5    1    3   
-Jalen Johnson             SF    42    16   7    5    1    2    2   
-Zaccharie Risacher        PF    26    16   7    1    2    0    1   
-Onyeka Okongwu            PF    24    13   4    0    0    2    0   
-Clint Capela              C     21    10   7    0    1    0    0   
-Garrison Mathews          SG    20    10   2    2    0    0    0   
+Trae Young                PG    41    25   4    10   3    0    4   
+Jalen Johnson             SF    43    23   13   4    0    2    2   
+Dyson Daniels             G     34    15   4    0    2    1    1   
+De'Andre Hunter           SF    29    14   6    3    1    2    0   
+Zaccharie Risacher        PF    27    11   2    3    0    0    0   
+Onyeka Okongwu            PF    26    7    6    0    0    1    0   
+Garrison Mathews          SG    15    6    1    0    1    0    0   
+Clint Capela              C     26    5    11   0    0    0    0   
 
 
 Miami Heat Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Tyler Herro               PG    37    24   2    5    1    0    4   
-Bam Adebayo               C     34    19   11   6    1    0    1   
-Jimmy Butler              SF    33    18   4    2    2    0    0   
-Terry Rozier              SG    27    14   3    7    1    2    2   
-Duncan Robinson           F     24    9    0    0    0    0    0   
-Haywood Highsmith         F     27    6    3    0    0    0    1   
-Nikola Jovic              F     21    5    4    0    1    0    0   
-Pelle Larsson             G     15    2    0    2    1    0    0   
-Jaime Jaquez Jr.          G     22    0    5    2    0    0    0   
+Tyler Herro               PG    36    25   5    3    0    0    4   
+Bam Adebayo               C     39    21   11   4    1    2    2   
+Jimmy Butler              SF    30    15   6    5    0    0    1   
+Terry Rozier              SG    30    11   0    3    1    0    2   
+Jaime Jaquez Jr.          G     21    7    2    3    0    0    2   
+Pelle Larsson             G     18    7    0    1    0    0    0   
+Haywood Highsmith         F     26    6    6    1    0    0    0   
+Duncan Robinson           F     20    6    1    3    3    0    0   
+Nikola Jovic              F     20    5    3    3    1    0    0   
 
 ================================================================================
 
 Game: Oklahoma City Thunder @ Charlotte Hornets
 --------------------------------------------------------------------------------
 
-Final Score: Charlotte Hornets 100 - 96 Oklahoma City Thunder
+Final Score: Charlotte Hornets 81 - 87 Oklahoma City Thunder
 
 Charlotte Hornets Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-LaMelo Ball               PG    38    34   6    5    0    0    4   
-Brandon Miller            F     45    28   3    8    1    0    5   
-Vasilije Micic            G     23    9    0    4    2    1    2   
-Cody Martin               SF    33    8    7    1    2    3    2   
-Tidjane Salaun            F     26    6    7    0    0    0    1   
-Seth Curry                SG    14    6    1    0    0    0    0   
-Josh Green                SG    34    5    3    6    1    1    2   
-Moussa Diabate            F     27    4    11   0    1    1    2   
+LaMelo Ball               PG    40    30   5    8    1    0    4   
+Brandon Miller            F     43    25   11   6    1    2    1   
+Cody Martin               SF    33    9    6    4    1    0    3   
+Vasilije Micic            G     26    7    1    8    0    0    2   
+Moussa Diabate            F     22    7    8    0    0    1    2   
+Josh Green                SG    33    3    3    5    0    1    2   
+Tidjane Salaun            F     24    0    3    0    0    0    0   
+Seth Curry                SG    19    0    2    0    2    0    0   
 
 
 Oklahoma City Thunder Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Shai Gilgeous-Alexander   PG    42    38   6    5    1    1    3   
-Jalen Williams            F     36    23   6    2    2    0    3   
-Luguentz Dort             G     31    8    6    1    0    0    0   
-Isaiah Joe                SG    26    8    2    0    0    0    0   
-Ajay Mitchell             G     17    7    4    1    1    1    1   
-Cason Wallace             G     30    6    0    3    3    0    0   
-Alex Caruso               SG    19    4    4    1    1    0    0   
-Aaron Wiggins             SG    18    2    4    4    0    1    0   
-Kenrich Williams          SF    14    0    0    0    0    0    0   
-Dillon Jones              F     6     0    0    0    0    0    0   
+Shai Gilgeous-Alexander   PG    37    30   4    5    2    1    3   
+Jalen Williams            F     33    19   4    7    1    0    2   
+Isaiah Joe                SG    22    9    2    3    2    0    0   
+Luguentz Dort             G     32    7    2    0    0    1    0   
+Kenrich Williams          SF    16    7    2    0    0    0    0   
+Cason Wallace             G     29    6    3    0    1    0    0   
+Alex Caruso               SG    23    6    0    4    2    1    0   
+Aaron Wiggins             SG    18    1    2    1    0    0    0   
+Ajay Mitchell             G     15    1    0    1    1    0    0   
+Dillon Jones              F     14    1    3    0    0    2    1   
 
 ================================================================================
 
 Game: New York Knicks @ Washington Wizards
 --------------------------------------------------------------------------------
 
-Final Score: Washington Wizards 105 - 97 New York Knicks
+Final Score: Washington Wizards 102 - 135 New York Knicks
 
 Washington Wizards Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Jordan Poole              SG    33    24   4    5    1    0    5   
-Bilal Coulibaly           SG    37    18   4    3    1    0    1   
-Carlton Carrington        G     32    14   4    2    0    0    1   
-Corey Kispert             SF    33    14   4    0    1    0    2   
-Jonas Valanciunas         C     17    12   3    0    2    1    0   
-Alexandre Sarr            PF    25    11   5    3    1    1    1   
-Jared Butler              SG    13    6    3    0    0    0    0   
-Kyshawn George            F     29    4    5    5    1    0    0   
-Marvin Bagley III         PF    7     1    1    2    0    1    0   
-Anthony Gill              PF    4     1    1    0    1    0    0   
-Johnny Davis              G     8     0    0    6    0    1    1   
+Jordan Poole              SG    29    20   5    8    0    0    2   
+Bilal Coulibaly           SG    36    16   4    5    2    0    3   
+Alexandre Sarr            PF    30    14   7    5    2    2    1   
+Corey Kispert             SF    29    12   3    1    0    0    1   
+Jonas Valanciunas         C     20    11   6    5    0    1    0   
+Carlton Carrington        G     33    10   2    3    0    0    2   
+Kyshawn George            F     29    7    6    1    1    0    0   
+Marvin Bagley III         PF    11    4    4    0    0    1    0   
+Anthony Gill              PF    10    4    0    0    1    1    0   
+Jared Butler              SG    8     2    0    1    1    0    1   
+Johnny Davis              G     6     2    3    0    0    1    0   
 
 
 New York Knicks Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Jalen Brunson             PG    34    23   4    10   1    0    3   
-Mikal Bridges             SF    41    20   3    4    1    1    2   
-Karl-Anthony Towns        C     33    17   13   3    2    2    3   
-Josh Hart                 SG    36    15   7    9    3    1    2   
-OG Anunoby                SF    36    13   5    1    0    1    1   
-Cameron Payne             PG    16    7    3    1    0    0    0   
-Miles McBride             PG    25    2    6    6    1    0    0   
-Jericho Sims              C     9     0    3    0    0    0    0   
-Tyler Kolek               G     9     0    3    4    0    0    1   
+Karl-Anthony Towns        C     33    28   14   4    0    1    2   
+Jalen Brunson             PG    34    26   2    7    1    0    3   
+Mikal Bridges             SF    37    20   5    3    0    2    0   
+Josh Hart                 SG    40    16   8    3    0    0    4   
+OG Anunoby                SF    36    12   7    3    0    1    0   
+Miles McBride             PG    23    12   0    4    1    0    1   
+Cameron Payne             PG    17    9    5    4    0    1    0   
+Tyler Kolek               G     8     8    0    0    0    0    1   
+Jericho Sims              C     11    4    4    0    0    0    1   
 
 ================================================================================
 
 Game: Milwaukee Bucks @ Chicago Bulls
 --------------------------------------------------------------------------------
 
-Final Score: Chicago Bulls 115 - 120 Milwaukee Bucks
+Final Score: Chicago Bulls 109 - 108 Milwaukee Bucks
 
 Chicago Bulls Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Nikola Vucevic            C     35    22   9    6    0    1    3   
-Josh Giddey               SG    29    20   6    4    0    0    2   
-Zach LaVine               SG    32    17   1    7    1    0    4   
-Ayo Dosunmu               SG    29    16   2    5    0    0    0   
-Coby White                PG    31    14   0    7    2    0    3   
-Patrick Williams          PF    24    10   5    0    0    0    1   
-Dalen Terry               F     11    4    1    0    1    0    0   
-Matas Buzelis             F     11    4    1    4    0    1    2   
-Talen Horton-Tucker       SF    11    4    1    2    0    0    0   
-Julian Phillips           F     14    3    1    2    0    1    0   
-Jalen Smith               PF    14    1    6    4    0    1    1   
+Nikola Vucevic            C     31    19   9    4    1    1    0   
+Zach LaVine               SG    31    17   5    2    0    0    2   
+Coby White                PG    31    17   4    3    1    1    0   
+Ayo Dosunmu               SG    27    17   3    3    0    0    0   
+Josh Giddey               SG    27    10   4    4    0    0    1   
+Patrick Williams          PF    26    9    4    3    1    1    1   
+Talen Horton-Tucker       SF    9     9    0    2    1    1    0   
+Jalen Smith               PF    17    6    2    0    0    0    0   
+Julian Phillips           F     16    3    4    0    0    0    0   
+Dalen Terry               F     11    2    0    0    0    0    1   
+Matas Buzelis             F     15    0    4    0    0    2    0   
 
 
 Milwaukee Bucks Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Giannis Antetokounmpo     PF    35    30   9    5    1    2    2   
-Damian Lillard            PG    39    29   3    5    1    0    2   
-Brook Lopez               C     32    13   6    1    0    1    1   
-Bobby Portis              F     24    12   7    0    0    2    1   
-Taurean Prince            PF    26    9    0    2    0    0    0   
-Delon Wright              SG    16    9    1    4    1    1    1   
-Gary Trent Jr.            SG    24    8    3    0    0    0    0   
-AJ Green                  G     25    8    2    0    0    0    0   
-Andre Jackson Jr.         G     20    2    5    1    0    0    1   
+Giannis Antetokounmpo     PF    36    35   13   8    0    1    4   
+Damian Lillard            PG    35    20   4    9    0    0    2   
+Taurean Prince            PF    26    11   3    6    0    0    1   
+Bobby Portis              F     28    11   5    1    0    1    0   
+Brook Lopez               C     30    9    3    2    0    4    0   
+Gary Trent Jr.            SG    26    9    1    0    1    0    0   
+AJ Green                  G     25    5    6    4    1    0    0   
+Andre Jackson Jr.         G     20    4    0    0    1    0    0   
+Delon Wright              SG    14    4    1    2    1    0    0   
 
 ================================================================================
 
 Game: Phoenix Suns @ Golden State Warriors
 --------------------------------------------------------------------------------
 
-Final Score: Golden State Warriors 101 - 109 Phoenix Suns
+Final Score: Golden State Warriors 103 - 102 Phoenix Suns
 
 Golden State Warriors Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Stephen Curry             PG    29    19   5    6    1    0    3   
-Andrew Wiggins            SF    24    16   2    5    1    3    2   
-Dennis Schroder           PG    27    15   6    10   0    0    3   
-Buddy Hield               SG    18    13   1    2    0    0    2   
-Jonathan Kuminga          PF    20    7    1    2    0    0    1   
-Brandin Podziemski        G     21    7    4    0    2    0    2   
-Kyle Anderson             SF    13    7    0    3    0    0    0   
-Draymond Green            PF    25    6    4    3    1    1    3   
-Trayce Jackson-Davis      F     15    5    2    1    1    1    1   
-Kevon Looney              F     11    4    5    3    0    1    1   
-Lindy Waters III          F     14    1    4    0    0    0    1   
-Gary Payton II            SG    9     1    0    1    1    0    1   
-Moses Moody               SG    14    0    0    2    0    0    2   
+Jonathan Kuminga          PF    23    20   4    1    0    0    2   
+Dennis Schroder           PG    25    16   1    7    1    0    2   
+Stephen Curry             PG    25    15   3    9    1    0    0   
+Andrew Wiggins            SF    25    15   7    3    0    0    2   
+Lindy Waters III          F     16    8    0    1    1    0    0   
+Buddy Hield               SG    20    7    3    0    2    0    0   
+Brandin Podziemski        G     19    6    5    2    0    0    0   
+Trayce Jackson-Davis      F     16    6    3    3    0    0    1   
+Moses Moody               SG    13    6    3    0    0    0    1   
+Draymond Green            PF    24    3    4    7    1    1    1   
+Kyle Anderson             SF    13    1    1    1    0    0    0   
+Kevon Looney              F     13    0    4    0    0    0    2   
+Gary Payton II            SG    10    0    2    0    0    0    0   
 
 
 Phoenix Suns Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Kevin Durant              PF    30    27   8    0    1    1    3   
-Devin Booker              SG    30    19   2    6    0    1    2   
-Royce O'Neale             PF    23    14   3    4    2    1    0   
-Bradley Beal              SG    26    12   3    3    0    1    0   
-Tyus Jones                PG    23    8    2    7    0    1    2   
-Grayson Allen             SG    19    8    4    0    0    0    0   
-Josh Okogie               SF    12    6    4    2    2    0    0   
-Jusuf Nurkic              C     22    5    9    2    0    2    3   
-Ryan Dunn                 F     14    3    0    0    1    2    1   
-Monte Morris              PG    13    3    0    2    1    0    0   
-Mason Plumlee             C     14    2    1    1    0    1    0   
-Oso Ighodaro              C     14    2    0    0    0    0    1   
+Devin Booker              SG    30    17   5    4    1    0    3   
+Kevin Durant              PF    29    17   5    3    0    0    2   
+Tyus Jones                PG    30    14   1    9    0    0    1   
+Bradley Beal              SG    30    12   5    4    1    0    1   
+Jusuf Nurkic              C     19    8    9    0    0    1    1   
+Grayson Allen             SG    20    7    6    4    1    0    0   
+Royce O'Neale             PF    19    6    1    0    1    0    1   
+Monte Morris              PG    11    6    1    0    0    0    1   
+Mason Plumlee             C     16    5    1    1    0    0    0   
+Ryan Dunn                 F     11    4    1    1    0    0    0   
+Oso Ighodaro              C     15    3    6    0    1    0    0   
+Josh Okogie               SF    9     3    3    0    0    0    1   
 
 ================================================================================
 
 Game: Detroit Pistons @ Denver Nuggets
 --------------------------------------------------------------------------------
 
-Final Score: Denver Nuggets 119 - 96 Detroit Pistons
+Final Score: Denver Nuggets 124 - 104 Detroit Pistons
 
 Denver Nuggets Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Nikola Jokic              C     40    34   14   9    1    0    3   
-Michael Porter Jr.        SF    38    18   9    2    0    2    1   
-Jamal Murray              PG    39    16   3    6    2    0    1   
-Christian Braun           G     34    15   4    0    0    2    0   
-Russell Westbrook         PG    29    14   5    8    2    2    3   
-Peyton Watson             F     24    8    0    0    2    0    0   
-Julian Strawther          G     22    8    3    3    0    0    0   
-Hunter Tyson              F     11    6    0    2    0    0    0   
-Zeke Nnaji                PF    4     0    0    0    0    0    1   
+Nikola Jokic              C     40    28   13   8    1    0    4   
+Michael Porter Jr.        SF    36    21   4    1    0    0    3   
+Jamal Murray              PG    39    18   3    8    2    0    2   
+Christian Braun           G     36    14   5    4    1    0    1   
+Russell Westbrook         PG    29    14   2    8    3    0    4   
+Peyton Watson             F     26    14   3    0    0    2    0   
+Julian Strawther          G     21    8    0    4    0    0    0   
+Zeke Nnaji                PF    3     4    0    0    0    0    0   
+Hunter Tyson              F     10    3    2    0    0    0    0   
 
 
 Detroit Pistons Box Score:
 --------------------------------------------------------------------------------
 Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
 --------------------------------------------------------------------------------
-Cade Cunningham           PG    35    17   4    10   1    0    5   
-Jaden Ivey                PG    32    17   4    3    0    0    3   
-Malik Beasley             SG    30    14   5    7    2    0    0   
-Tobias Harris             F     30    12   3    0    1    0    0   
-Ronald Holland II         F     16    9    5    2    0    0    1   
-Tim Hardaway Jr.          SF    26    8    1    3    1    0    0   
-Jalen Duren               C     22    7    7    1    1    2    2   
-Isaiah Stewart            C     17    6    1    5    0    1    0   
-Simone Fontecchio         F     18    4    3    0    0    0    2   
-Marcus Sasser             G     13    2    0    0    0    0    0   
+Malik Beasley             SG    28    21   0    4    0    0    0   
+Cade Cunningham           PG    35    20   4    8    0    1    3   
+Tobias Harris             F     31    13   6    3    0    0    1   
+Jalen Duren               C     25    12   9    6    2    0    2   
+Tim Hardaway Jr.          SF    27    11   0    2    0    0    0   
+Jaden Ivey                PG    28    10   3    4    3    0    3   
+Isaiah Stewart            C     23    6    6    2    2    1    1   
+Marcus Sasser             G     14    5    1    0    0    0    0   
+Simone Fontecchio         F     16    4    2    0    0    0    2   
+Ronald Holland II         F     12    2    2    0    0    0    0   
+
+================================================================================
+
+Game: Philadelphia 76ers @ Utah Jazz
+--------------------------------------------------------------------------------
+
+Final Score: Utah Jazz 108 - 102 Philadelphia 76ers
+
+Utah Jazz Box Score:
+--------------------------------------------------------------------------------
+Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
+--------------------------------------------------------------------------------
+Jordan Clarkson           PG    23    18   2    5    1    0    3   
+John Collins              PF    29    17   10   0    0    0    2   
+Lauri Markkanen           PF    31    15   10   2    0    0    2   
+Collin Sexton             PG    25    13   4    3    0    1    2   
+Keyonte George            G     30    10   5    4    0    1    0   
+Walker Kessler            C     28    8    9    1    0    3    2   
+Brice Sensabaugh          F     16    8    2    2    1    0    0   
+Drew Eubanks              PF    12    7    2    2    0    0    1   
+Kyle Filipowski           F     15    6    4    6    1    0    0   
+Johnny Juzang             G     14    4    0    2    0    0    0   
+Isaiah Collier            G     17    2    0    1    1    0    2   
+
+
+Philadelphia 76ers Box Score:
+--------------------------------------------------------------------------------
+Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
+--------------------------------------------------------------------------------
+Tyrese Maxey              PG    34    26   3    3    3    0    1   
+Jared McCain              G     25    18   2    0    1    1    4   
+Paul George               F     29    17   3    2    0    0    2   
+Kelly Oubre Jr.           SG    32    11   3    0    3    0    1   
+Andre Drummond            C     19    11   7    1    0    0    3   
+Caleb Martin              SF    23    6    5    2    0    0    2   
+Guerschon Yabusele        F     21    5    7    0    1    0    0   
+Eric Gordon               SG    14    3    0    0    0    1    0   
+Kyle Lowry                PG    16    2    1    0    1    2    0   
+Ricky Council IV          G     10    2    0    0    0    0    0   
+KJ Martin                 F     18    1    0    0    0    0    0   
+
+================================================================================
+
+Game: Dallas Mavericks @ Portland Trail Blazers
+--------------------------------------------------------------------------------
+
+Final Score: Portland Trail Blazers 104 - 105 Dallas Mavericks
+
+Portland Trail Blazers Box Score:
+--------------------------------------------------------------------------------
+Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
+--------------------------------------------------------------------------------
+Deandre Ayton             C     26    15   8    0    1    1    1   
+Jerami Grant              SF    30    13   5    2    1    1    0   
+Shaedon Sharpe            SG    29    13   3    0    0    0    1   
+Rayan Rupert              G     9     13   0    2    0    0    0   
+Anfernee Simons           SG    26    11   0    4    1    0    3   
+Deni Avdija               SF    20    10   6    2    0    0    1   
+Scoot Henderson           G     22    10   0    4    1    0    1   
+Toumani Camara            F     26    6    5    0    1    1    2   
+Donovan Clingan           C     16    6    5    1    0    2    2   
+Dalano Banton             G     14    4    1    4    0    0    1   
+Jabari Walker             F     9     2    3    1    1    1    0   
+Kris Murray               F     12    1    4    0    1    0    0   
+
+
+Dallas Mavericks Box Score:
+--------------------------------------------------------------------------------
+Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
+--------------------------------------------------------------------------------
+Luka Doncic               PG    29    18   6    4    1    0    3   
+Kyrie Irving              PG    28    18   7    3    1    0    0   
+Daniel Gafford            C     19    13   5    1    0    1    0   
+Jaden Hardy               G     13    10   0    1    0    0    1   
+Naji Marshall             SF    22    9    1    0    0    0    0   
+Klay Thompson             SG    21    8    3    0    3    0    2   
+Dereck Lively II          C     20    7    0    0    0    1    1   
+Spencer Dinwiddie         PG    18    7    0    5    0    0    0   
+P.J. Washington           PF    25    5    2    3    1    2    0   
+Dwight Powell             C     10    4    2    1    0    0    0   
+Quentin Grimes            SG    13    3    1    2    0    0    0   
+Olivier-Maxence Prosper   F     8     3    4    0    0    0    0   
+Maxi Kleber               PF    15    0    4    0    0    0    0   
 
 ================================================================================
 

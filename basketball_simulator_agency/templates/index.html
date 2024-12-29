@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NBA Game Simulator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .box-score {
+            font-family: monospace;
+            white-space: pre-wrap;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .team-select {
+            margin-bottom: 20px;
+        }
+
+        .btn-simulate {
+            margin-top: 10px;
+        }
+
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .daily-games {
+            margin-top: 30px;
+        }
+
+        .daily-games h2 {
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .game-divider {
+            border-top: 2px solid #dee2e6;
+            margin: 30px 0;
+        }
+
+        .no-games {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .date-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>NBA Game Simulator</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="team-select">
+                    <label for="home-team" class="form-label">Home Team:</label>
+                    <select id="home-team" class="form-select">
+                        <option value="">Select Home Team</option>
+                        {% for team in teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="team-select">
+                    <label for="away-team" class="form-label">Away Team:</label>
+                    <select id="away-team" class="form-select">
+                        <option value="">Select Away Team</option>
+                        {% for team in teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <button id="simulate-game" class="btn btn-primary btn-simulate">Simulate Game</button>
+            </div>
+            <div class="col-md-6">
+                <button id="simulate-daily" class="btn btn-secondary btn-simulate">Simulate Today's Games</button>
+            </div>
+        </div>
+
+        <div class="loading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p>Simulating game(s)...</p>
+        </div>
+
+        <div id="results" class="box-score"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function formatDailyGames(result) {
+            if (result.includes("No games scheduled for today")) {
+                return '<div class="no-games">No NBA games scheduled for today.</div>';
+            }
+
+            // Extract the date from the result
+            const dateMatch = result.match(/NBA Game Simulations for ([^=]+)/);
+            const dateHeader = dateMatch ?
+                `<div class="date-header">NBA Game Simulations for ${dateMatch[1]}</div>` : '';
+
+            // Split the games by the separator (80 equals signs)
+            const games = result.split('='.repeat(80));
+
+            // Format each game, preserving whitespace and box score formatting
+            const formattedGames = games.map(game => {
+                if (!game.trim()) return '';
+                // Preserve the monospace formatting and whitespace
+                return `<div class="game"><pre>${game}</pre></div>`;
+            }).join('<div class="game-divider"></div>');
+
+            return dateHeader + formattedGames;
+        }
+
+        $(document).ready(function () {
+            $('#simulate-game').click(function () {
+                const homeTeam = $('#home-team').val();
+                const awayTeam = $('#away-team').val();
+
+                if (!homeTeam || !awayTeam) {
+                    alert('Please select both teams');
+                    return;
+                }
+
+                $('.loading').show();
+                $('#results').hide();
+
+                $.ajax({
+                    url: '/simulate',
+                    method: 'POST',
+                    data: {
+                        home_team: homeTeam,
+                        away_team: awayTeam
+                    },
+                    success: function (response) {
+                        $('.loading').hide();
+                        $('#results').show().html(`<pre>${response.result}</pre>`);
+                    },
+                    error: function () {
+                        $('.loading').hide();
+                        alert('Error simulating game');
+                    }
+                });
+            });
+
+            $('#simulate-daily').click(function () {
+                $('.loading').show();
+                $('#results').hide();
+
+                $.ajax({
+                    url: '/simulate_daily',
+                    method: 'POST',
+                    success: function (response) {
+                        $('.loading').hide();
+                        if (response.error) {
+                            alert(response.error);
+                            return;
+                        }
+                        $('#results').show().html(formatDailyGames(response.result));
+                    },
+                    error: function () {
+                        $('.loading').hide();
+                        alert('Error simulating daily games');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -168,10 +168,11 @@ def simulate_game(home_team, away_team):
             
         print("Creating GameSimulationAgent...")
         game_agent = GameSimulationAgent()
+        game_agent.start()
         print("Created GameSimulationAgent successfully")
         
         print("Sending simulation request...")
-        result = game_agent.run(f"Simulate a game between {home_team} and {away_team}")
+        result = game_agent.send_message(f"Simulate a game between {home_team} and {away_team}")
         print("Game simulation completed successfully")
         
         return jsonify({"result": result})
@@ -200,10 +201,11 @@ def simulate_daily():
             
         print("Creating GameSimulationAgent...")
         game_agent = GameSimulationAgent()
+        game_agent.start()
         print("Created GameSimulationAgent successfully")
         
         print("Sending daily simulation request...")
-        result = game_agent.run("Simulate all NBA games today")
+        result = game_agent.send_message("Simulate all NBA games today")
         print("Daily games simulation completed successfully")
         
         return jsonify({"result": result})

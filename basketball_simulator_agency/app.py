@@ -47,20 +47,17 @@ except Exception as e:
 try:
     print("Initializing Agency...")
     game_agent = GameSimulationAgent()
+    db_agent = DatabaseAgent()
+    web_scraper = WebScraperAgent()
     
-    # Define a simple agency chart for a single agent
-    agency_chart = {
-        "GameSimulationAgent": {}  # Empty dict since no other agents to communicate with
-    }
-    
-    # Create a mapping of agent names to instances
-    agent_instances = {
-        "GameSimulationAgent": game_agent
-    }
-    
+    # Initialize agency with communication flows
     simulation_agency = Agency(
-        agency_chart,
-        agent_instances,
+        [
+            game_agent,  # Make GameSimulationAgent the entry point
+            [game_agent, db_agent],  # Game simulation can request data from database
+            [db_agent, web_scraper],  # Database can request fresh data from scraper if needed
+        ],
+        shared_instructions="agency_manifesto.md",
         temperature=0.7
     )
     print("Agency initialized successfully")

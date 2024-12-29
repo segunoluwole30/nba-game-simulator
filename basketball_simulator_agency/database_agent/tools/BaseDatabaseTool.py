@@ -8,6 +8,12 @@ class BaseDatabaseTool(BaseTool):
     def get_db_connection(self):
         """Get a database connection using environment variables."""
         try:
+            # Print all relevant environment variables for debugging
+            print("=== Environment Variables ===")
+            print(f"DATABASE_URL: {os.getenv('DATABASE_URL')}")
+            print(f"RENDER: {os.getenv('RENDER')}")
+            print("=== End Environment Variables ===")
+            
             # Check for DATABASE_URL (provided by Render)
             database_url = os.getenv('DATABASE_URL')
             

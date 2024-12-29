@@ -80,12 +80,14 @@ class ScrapePlayersTool(BaseTool):
                 cells = row.find_all('td')
                 if len(cells) >= 4:  # Make sure row has enough cells
                     try:
-                        name = cells[1].get_text(strip=True)
+                        # Get the name element and its text
+                        name_element = cells[1].find('a')
+                        name = name_element.get_text(strip=True) if name_element else cells[1].get_text(strip=True)
                         position = cells[2].get_text(strip=True)
                         number = cells[0].get_text(strip=True).replace('#', '')  # Remove # if present
                         
-                        # Write player data (name without number)
-                        writer.writerow([name.strip(), team_name, position, number, '', '', '', ''])
+                        # Write player data
+                        writer.writerow([name, team_name, position, number, '', '', '', ''])
                         print(f"Added {name} (#{number}) from {team_name}")
                     except Exception as e:
                         print(f"Error processing player: {str(e)}")

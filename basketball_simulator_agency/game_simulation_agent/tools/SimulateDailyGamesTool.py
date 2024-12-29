@@ -13,6 +13,19 @@ class SimulateDailyGamesTool(BaseTool):
         default="/tmp/daily_simulations.txt",
         description="Path where the simulation results will be saved"
     )
+    db_name: str = Field(
+        description="Database name"
+    )
+    db_user: str = Field(
+        description="Database user"
+    )
+    db_password: str = Field(
+        description="Database password"
+    )
+    db_host: str = Field(
+        description="Database host",
+        default="localhost"
+    )
 
     def get_todays_games(self):
         """Scrape today's NBA games from ESPN."""
@@ -145,7 +158,11 @@ class SimulateDailyGamesTool(BaseTool):
                 # Create a new simulator instance for each game with proper parameters
                 simulator = SimulateGameTool(
                     home_team=home_team,
-                    away_team=away_team
+                    away_team=away_team,
+                    db_name=self.db_name,
+                    db_user=self.db_user,
+                    db_password=self.db_password,
+                    db_host=self.db_host
                 )
                 game_result = simulator.run()
                 

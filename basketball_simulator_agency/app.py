@@ -195,11 +195,27 @@ def simulate_daily():
     try:
         print("\nAttempting to simulate daily games")
         
+        # Get database connection details
+        db_url = os.getenv('DATABASE_URL')
+        if not db_url:
+            raise Exception("DATABASE_URL environment variable not set")
+            
+        result = urlparse(db_url)
+        username = result.username
+        password = result.password
+        database = result.path[1:]
+        hostname = result.hostname
+        
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
-        # Use SimulateDailyGamesTool directly
-        daily_tool = SimulateDailyGamesTool()
+        # Use SimulateDailyGamesTool with database parameters
+        daily_tool = SimulateDailyGamesTool(
+            db_name=database,
+            db_user=username,
+            db_password=password,
+            db_host=hostname
+        )
         result = daily_tool.run()
         print("Daily games simulation completed successfully")
         

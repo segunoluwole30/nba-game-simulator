@@ -14,6 +14,19 @@ class SimulateGameTool(BaseTool):
     away_team: str = Field(
         description="Name of the away team"
     )
+    db_name: str = Field(
+        description="Database name"
+    )
+    db_user: str = Field(
+        description="Database user"
+    )
+    db_password: str = Field(
+        description="Database password"
+    )
+    db_host: str = Field(
+        description="Database host",
+        default="localhost"
+    )
 
     def get_team_players(self, cur, team_name):
         """Get players and their stats for a team."""
@@ -132,15 +145,12 @@ class SimulateGameTool(BaseTool):
     def run(self) -> str:
         """Run the game simulation."""
         try:
-            # Load environment variables
-            load_dotenv()
-            
-            # Connect to the database
+            # Connect to the database using constructor parameters
             conn = psycopg2.connect(
-                dbname=os.getenv('DB_NAME'),
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASSWORD'),
-                host=os.getenv('DB_HOST', 'localhost')
+                dbname=self.db_name,
+                user=self.db_user,
+                password=self.db_password,
+                host=self.db_host
             )
             
             cur = conn.cursor()
@@ -170,10 +180,10 @@ class SimulateGameTool(BaseTool):
             conn.close()
             
             return result
-            
+
         except Exception as e:
             return f"Error simulating game: {str(e)}"
 
 if __name__ == "__main__":
-    tool = SimulateGameTool(home_team="Boston Celtics", away_team="Los Angeles Lakers")
+    tool = SimulateGameTool(home_team="Boston Celtics", away_team="Los Angeles Lakers", db_name="basketball_db", db_user="basketball_user", db_password="basketball_password", db_host="localhost")
     print(tool.run()) 

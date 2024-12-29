@@ -57,7 +57,7 @@ class ScrapePlayersTool(BaseTool):
         with open('nba_active_players.csv', mode, newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             if not file_exists:
-                writer.writerow(['name', 'current_team', 'position', 'number', 'height', 'weight', 'age', 'college'])
+                writer.writerow(['name', 'current_team', 'position', 'number', 'height', 'weight', 'age', 'colleges'])
 
             print(f"Scraping {team_name} roster...")
             team_path = self.NBA_TEAMS[team_name]
@@ -96,13 +96,10 @@ class ScrapePlayersTool(BaseTool):
 
     def run(self):
         """Create/update the active players CSV file."""
-        # Create data directory if it doesn't exist
-        os.makedirs('data', exist_ok=True)
-        
         # Create/overwrite the CSV file
-        with open('data/nba_active_players.csv', 'w', newline='', encoding='utf-8') as f:
+        with open('nba_active_players.csv', 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerow(['name', 'current_team', 'position', 'number', 'height', 'weight', 'age', 'college'])
+            writer.writerow(['name', 'current_team', 'position', 'number', 'height', 'weight', 'age', 'colleges'])
         
         # Scrape each team's roster
         for team_name in self.NBA_TEAMS:

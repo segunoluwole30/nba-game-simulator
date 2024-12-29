@@ -82,11 +82,11 @@ class ScrapePlayersTool(BaseTool):
                     try:
                         name = cells[1].get_text(strip=True)
                         position = cells[2].get_text(strip=True)
-                        number = cells[0].get_text(strip=True)
+                        number = cells[0].get_text(strip=True).replace('#', '')  # Remove # if present
                         
-                        # Write player data
-                        writer.writerow([name, team_name, position, number, '', '', '', ''])
-                        print(f"Added {name} from {team_name}")
+                        # Write player data (name without number)
+                        writer.writerow([name.strip(), team_name, position, number, '', '', '', ''])
+                        print(f"Added {name} (#{number}) from {team_name}")
                     except Exception as e:
                         print(f"Error processing player: {str(e)}")
                         continue

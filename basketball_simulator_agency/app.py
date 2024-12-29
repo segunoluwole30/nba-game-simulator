@@ -18,30 +18,52 @@ print(f"DATABASE_URL: {os.getenv('DATABASE_URL')}")
 print(f"RENDER: {os.getenv('RENDER')}")
 print("=== End Environment Variables ===")
 
-@app.route('/init_db', methods=['POST'])
-def init_db():
-    """Initialize the database with teams and players."""
+@app.route('/init_schema', methods=['POST'])
+def init_schema():
+    """Initialize the database schema."""
     try:
-        # Create database schemas
         create_schemas = CreateSchemasTool()
         create_schemas.run()
-        
-        # Scrape players (includes teams)
-        players_tool = ScrapePlayersTool()
-        players_tool.run()
-        
-        # Load data into database
-        load_tool = LoadDataTool()
-        load_tool.run()
-        
         return jsonify({
             'status': 'success',
-            'message': 'Database initialized successfully'
+            'message': 'Database schema created successfully'
         })
     except Exception as e:
         return jsonify({
             'status': 'error',
-            'message': f'Error initializing database: {str(e)}'
+            'message': f'Error creating schema: {str(e)}'
+        }), 500
+
+@app.route('/scrape_data', methods=['POST'])
+def scrape_data():
+    """Scrape teams and players data."""
+    try:
+        players_tool = ScrapePlayersTool()
+        players_tool.run()
+        return jsonify({
+            'status': 'success',
+            'message': 'Data scraped successfully'
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Error scraping data: {str(e)}'
+        }), 500
+
+@app.route('/load_data', methods=['POST'])
+def load_data():
+    """Load scraped data into database."""
+    try:
+        load_tool = LoadDataTool()
+        load_tool.run()
+        return jsonify({
+            'status': 'success',
+            'message': 'Data loaded successfully'
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Error loading data: {str(e)}'
         }), 500
 
 @app.route('/simulate_game/<home_team>/<away_team>')

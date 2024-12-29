@@ -47,21 +47,9 @@ except Exception as e:
 try:
     print("Initializing Agency...")
     game_agent = GameSimulationAgent()
-    database_agent = DatabaseAgent()
-    web_scraper_agent = WebScraperAgent()
-    
-    # Define the agency chart showing how agents interact
-    agency_chart = {
-        "GameSimulationAgent": {
-            "DatabaseAgent": "Request player statistics and team information"
-        },
-        "DatabaseAgent": {
-            "WebScraperAgent": "Request fresh player data and statistics"
-        }
-    }
     
     simulation_agency = Agency(
-        game_agent, database_agent, web_scraper_agent,
+        game_agent,
         temperature=0.7
     )
     print("Agency initialized successfully")

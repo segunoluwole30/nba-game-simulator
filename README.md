@@ -153,9 +153,7 @@ This project uses data from ESPN's NBA section. All data is scraped from publicl
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Legal Notice
 

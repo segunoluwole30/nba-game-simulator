@@ -1,126 +1,128 @@
-# Basketball Simulator Agency
+# NBA Game Simulator
 
-A Python-based basketball simulation system that uses real NBA data to create realistic game simulations. The system combines web scraping, database management, and statistical simulation to provide accurate and engaging basketball game results.
+A web application that simulates NBA basketball games using real player statistics. The simulator uses player data from ESPN and provides realistic game simulations with detailed box scores.
+
+Live Demo: [https://nba-game-simulator.onrender.com](https://nba-game-simulator.onrender.com)
 
 ## Features
 
-- **Web Scraping**: Automatically fetches current NBA data
-  - Team rosters and information from ESPN
-  - Player statistics and biographical data
-  - Daily game schedules
-
-- **Database Management**: PostgreSQL database for storing and managing data
-  - Team and player information
-  - Current season statistics
-  - Efficient data retrieval for simulations
-
-- **Game Simulation**: Realistic basketball game simulation
-  - Player-specific performance based on real statistics
-  - Accurate team minute distribution (240 minutes per team in regulation)
-  - Support for overtime periods (1-4 OT periods)
-  - Detailed box scores for each game
-  - Team-based gameplay dynamics
-
-## Game Simulation Features
-- Realistic minute distribution (exactly 240 team minutes in regulation)
-- Overtime handling (adds 5 minutes per OT period)
-- Statistics scaled based on minutes played
-- Box scores show:
-  - Player name and position
-  - Minutes played (whole numbers)
-  - Points, rebounds, assists
-  - Steals, blocks, turnovers
-  - Overtime periods in final score (e.g., "2OT" for double overtime)
+- Web scraping of current NBA rosters and player statistics
+- Database storage of player data
+- Single game simulation between any two NBA teams
+- Daily games simulation (simulates all NBA games scheduled for the current day)
+- Realistic box scores with accurate minute distribution
+- Support for overtime games (1-4 OT periods)
+- Web interface for easy team selection and simulation
+- API endpoints for programmatic access
+- Hosted on Render with PostgreSQL database
 
 ## Prerequisites
 
-- Python 3.8 or higher
+For local development:
+- Python 3.8+
 - PostgreSQL database
-- Required Python packages (see requirements.txt)
-- OpenAI API key (optional - needed only for agency interaction mode)
+- OpenAI API key (for game simulations)
 
 ## Installation
 
+### Local Development
+
 1. Clone the repository:
 ```bash
-git clone https://github.com/segunoluwole30/nba-game-simulator.git
+git clone https://github.com/yourusername/nba-game-simulator.git
 cd nba-game-simulator
 ```
 
-2. Install required packages:
+2. Install dependencies:
 ```bash
-pip install -r basketball_simulator_agency/requirements.txt
+pip install -r requirements.txt
 ```
 
 3. Set up environment variables:
 ```bash
-cp basketball_simulator_agency/.env.example basketball_simulator_agency/.env
+# For local development
+export DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+export OPENAI_API_KEY="your-api-key"
 ```
-Edit `.env` with your database credentials and OpenAI API key (if using agency mode).
 
-4. Create PostgreSQL database:
-```sql
-CREATE DATABASE basketball_sim;
-```
+### Deployment on Render
+
+The application is deployed on Render with the following configuration:
+
+1. Web Service:
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `gunicorn basketball_simulator_agency.app:app`
+   - Environment Variables:
+     - `DATABASE_URL` (provided by Render PostgreSQL)
+     - `OPENAI_API_KEY` (your OpenAI API key)
+     - `PYTHON_VERSION`: "3.8.0"
+
+2. PostgreSQL Database:
+   - Automatically provisioned by Render
+   - Connection details provided via `DATABASE_URL`
 
 ## Usage
 
-### Method 1: Using the Agency (Recommended)
-If you have an OpenAI API key, you can use the interactive agency mode which provides a natural language interface:
+### Web Interface
 
-1. Ensure your OpenAI API key is set in `.env`
-2. Run the agency:
+#### Production
+Visit [https://nba-game-simulator.onrender.com](https://nba-game-simulator.onrender.com) to use the live application.
+
+#### Local Development
+1. Start the Flask application:
 ```bash
-python3 agency.py
-```
-3. Enter commands like:
-   - "Scrape the latest NBA data"
-   - "Load the data into the database"
-   - "Simulate a game between Lakers and Celtics"
-   - "Simulate all of today's NBA games"
-
-### Method 2: Direct Tool Usage
-You can also use the tools directly in Python:
-
-1. Initialize the database schemas:
-```python
-from basketball_simulator_agency.database_agent.tools.CreateSchemasTool import CreateSchemasTool
-tool = CreateSchemasTool()
-tool.run()
+python -m basketball_simulator_agency.app
 ```
 
-2. Scrape current NBA data:
-```python
-from basketball_simulator_agency.web_scraper_agent.tools.ScrapeTeamsTool import ScrapeTeamsTool
-from basketball_simulator_agency.web_scraper_agent.tools.ScrapePlayersTool import ScrapePlayersTool
-teams_tool = ScrapeTeamsTool()
-players_tool = ScrapePlayersTool()
-teams_tool.run()
-players_tool.run()
-```
+2. Open your browser and navigate to `http://localhost:5000`
+3. Select teams from the dropdowns and click "Simulate Game"
+4. For daily simulations, click "Simulate Today's Games"
 
-3. Load data into database:
-```python
-from basketball_simulator_agency.database_agent.tools.LoadDataTool import LoadDataTool
-tool = LoadDataTool()
-tool.run()
-```
+### Direct Tool Usage
 
-4. Simulate a game:
+You can also use the simulation tools directly in Python:
+
+1. Simulate a specific game:
 ```python
 from basketball_simulator_agency.game_simulation_agent.tools.SimulateGameTool import SimulateGameTool
-game_tool = SimulateGameTool(home_team="Boston Celtics", away_team="Los Angeles Lakers")
+
+game_tool = SimulateGameTool(
+    home_team="Boston Celtics",
+    away_team="Los Angeles Lakers",
+    db_name="your_db_name",
+    db_user="your_db_user",
+    db_password="your_db_password",
+    db_host="your_db_host"
+)
 print(game_tool.run())
 ```
 
-5. Simulate all of today's games:
+2. Simulate all of today's games:
 ```python
 from basketball_simulator_agency.game_simulation_agent.tools.SimulateDailyGamesTool import SimulateDailyGamesTool
-tool = SimulateDailyGamesTool()
+
+tool = SimulateDailyGamesTool(
+    db_name="your_db_name",
+    db_user="your_db_user",
+    db_password="your_db_password",
+    db_host="your_db_host"
+)
 print(tool.run())
 ```
 
-### Sample Output
+## Project Structure
+
+```
+basketball_simulator_agency/
+├── app.py                 # Flask application
+├── templates/            # HTML templates
+├── database_agent/      # Database management tools
+├── web_scraper_agent/   # Web scraping tools
+└── game_simulation_agent/ # Game simulation logic
+```
+
+## Sample Output
+
 When you simulate a game, you'll get output similar to this:
 
 ```
@@ -133,65 +135,28 @@ Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO
 Jayson Tatum             SF    42    32   9    6    2    1    3   
 Jaylen Brown             SG    40    28   6    4    1    0    2   
 Kristaps Porzingis       C     38    22   11   2    0    3    1   
-Derrick White            PG    35    15   4    8    2    1    2   
-Jrue Holiday             PG    32    12   5    9    2    0    2   
-Sam Hauser              SF    20    8    3    1    0    0    1   
-Al Horford              C     18    5    6    2    0    1    0   
-Luke Kornet             C     15    2    2    0    0    1    1   
+[... more players ...]
 
 Los Angeles Lakers Box Score:
---------------------------------------------------------------------------------
-Name                      POS   MIN   PTS  REB  AST  STL  BLK  TO  
---------------------------------------------------------------------------------
-LeBron James             SF    44    36   11   9    1    1    2   
-Anthony Davis            PF    42    28   14   3    1    4    3   
-D'Angelo Russell         PG    35    18   3    8    2    0    3   
-Austin Reaves            SG    32    16   4    6    1    0    2   
-Rui Hachimura           PF    25    12   5    1    0    0    1   
-Christian Wood          C     20    4    6    0    0    1    1   
-Gabe Vincent            PG    18    4    1    3    1    0    1   
-Taurean Prince          SF    14    2    2    1    0    0    0   
+[... similar format ...]
 ```
 
-## Project Structure
+## Data Sources
 
-```
-basketball_simulator_agency/
-├── agency.py                 # Main entry point
-├── data/                     # CSV data storage
-├── web_scraper_agent/       # Web scraping functionality
-├── database_agent/          # Database management
-└── game_simulation_agent/   # Game simulation logic
-```
-
-## Environment Variables
-
-Required environment variables in `.env`:
-- `DB_NAME`: Database name
-- `DB_USER`: Database username
-- `DB_PASSWORD`: Database password
-- `DB_HOST`: Database host (default: localhost)
-- `OPENAI_API_KEY`: Your OpenAI API key (required for agency mode)
+This project uses data from ESPN's NBA section. All data is scraped from publicly available pages. The project is for educational purposes only and is not affiliated with or endorsed by ESPN, the NBA, or any NBA teams.
 
 ## Contributing
 
 1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Legal Notice
 
-This is a personal project for educational purposes only. The project:
-- Uses the [agency-swarm](https://github.com/VRSEN/agency-swarm) framework - all rights belong to their respective owners
-- Accesses publicly available data from ESPN
-- Is not affiliated with, endorsed, or sponsored by the NBA or ESPN
-- Should not be used for commercial purposes
-
-## Acknowledgments
-
-- Built using [agency-swarm](https://github.com/VRSEN/agency-swarm) framework
-- Data sourced from ESPN's publicly available data
-- Inspired by real NBA statistics and gameplay
-- This project is for educational purposes only 
+This project is for educational purposes only. It is not affiliated with, endorsed by, or connected to ESPN, the NBA, or any NBA teams. All team names, player names, and statistics are property of their respective owners. 

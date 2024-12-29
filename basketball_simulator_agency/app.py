@@ -156,12 +156,30 @@ def simulate_game(home_team, away_team):
     try:
         print(f"\nAttempting to simulate game: {home_team} vs {away_team}")
         
+        # Get database connection details
+        db_url = os.getenv('DATABASE_URL')
+        if not db_url:
+            raise Exception("DATABASE_URL environment variable not set")
+            
+        result = urlparse(db_url)
+        username = result.username
+        password = result.password
+        database = result.path[1:]
+        hostname = result.hostname
+        
         if not verify_db_connection():
             raise Exception("Could not connect to database")
             
-        # Create SimulateGameTool with team names as constructor parameters
-        game_tool = SimulateGameTool(home_team=home_team, away_team=away_team)
-        result = game_tool.run()  # No need to pass parameters here since they're in constructor
+        # Create SimulateGameTool with team names and database details
+        game_tool = SimulateGameTool(
+            home_team=home_team, 
+            away_team=away_team,
+            db_name=database,
+            db_user=username,
+            db_password=password,
+            db_host=hostname
+        )
+        result = game_tool.run()
         print("Game simulation completed successfully")
         
         return jsonify({"result": result})

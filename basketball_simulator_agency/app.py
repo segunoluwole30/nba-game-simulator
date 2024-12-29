@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, jsonify
 from game_simulation_agent.tools.SimulateGameTool import SimulateGameTool
 from game_simulation_agent.tools.SimulateDailyGamesTool import SimulateDailyGamesTool
 from database_agent.tools.QueryTeamsTool import QueryTeamsTool
+from database_agent.tools.CreateSchemasTool import CreateSchemasTool
+from web_scraper_agent.tools.ScrapeTeamsTool import ScrapeTeamsTool
+from web_scraper_agent.tools.ScrapePlayersTool import ScrapePlayersTool
+from database_agent.tools.LoadDataTool import LoadDataTool
 import os
 
 app = Flask(__name__)
@@ -20,6 +24,34 @@ def index():
     teams_tool = QueryTeamsTool()
     teams = teams_tool.run()
     return render_template('index.html', teams=teams)
+
+@app.route('/init_db', methods=['POST'])
+def init_db():
+    """Initialize the database with teams and players."""
+    try:
+        # Create database schemas
+        create_schemas = CreateSchemasTool()
+        create_schemas.run()
+        
+        # Scrape teams and players
+        teams_tool = ScrapeTeamsTool()
+        players_tool = ScrapePlayersTool()
+        teams_tool.run()
+        players_tool.run()
+        
+        # Load data into database
+        load_tool = LoadDataTool()
+        load_tool.run()
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Database initialized successfully'
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Error initializing database: {str(e)}'
+        }), 500
 
 @app.route('/simulate', methods=['POST'])
 def simulate_game():

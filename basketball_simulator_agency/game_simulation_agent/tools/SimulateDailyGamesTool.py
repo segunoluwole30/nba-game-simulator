@@ -30,7 +30,7 @@ class SimulateDailyGamesTool(BaseTool):
     def get_todays_games(self):
         """Scrape today's NBA games from ESPN."""
         try:
-            url = "https://www.espn.com/nba/schedule"
+            url = "https://www.espn.com/nba/schedule/_/date/" + datetime.now().strftime("%Y%m%d")
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
             }
@@ -69,6 +69,7 @@ class SimulateDailyGamesTool(BaseTool):
                 'Washington': 'Washington Wizards'
             }
             
+            print(f"Fetching schedule from: {url}")
             response = requests.get(url, headers=headers)
             if response.status_code != 200:
                 print(f"Failed to fetch schedule: {response.status_code}")
@@ -79,48 +80,25 @@ class SimulateDailyGamesTool(BaseTool):
             
             games = []
             
-            # Find the first (current day) schedule table
-            schedule_table = soup.find('div', class_='ScheduleTables mb5 ScheduleTables--nba ScheduleTables--basketball')
-            if not schedule_table:
-                print("Could not find today's schedule table")
-                return []
+            # Find all game containers
+            game_containers = soup.find_all('div', class_='matchTeams')
+            print(f"Found {len(game_containers)} game containers")
             
-            # Get the date from the table header
-            date_header = schedule_table.find('div', class_='Table__Title')
-            if date_header:
-                print(f"Processing games for: {date_header.text.strip()}")
-            
-            # Find all game rows in the table
-            game_rows = schedule_table.find_all('tr', class_='Table__TR')
-            print(f"Found {len(game_rows)} potential game rows")
-            
-            for row in game_rows:
-                # Skip header rows
-                if row.find('th'):
-                    continue
+            for container in game_containers:
+                # Find team links
+                team_links = container.find_all('a')
+                if len(team_links) >= 2:
+                    away_team = team_links[0].text.strip()
+                    home_team = team_links[1].text.strip()
                     
-                # Find away team
-                away_team_elem = row.find('td', class_=['Table__TD'])
-                if away_team_elem:
-                    away_team_name = away_team_elem.find('span', class_='Table__Team')
-                    if away_team_name:
-                        away_team = away_team_name.text.strip()
-                        
-                        # Find home team
-                        home_team_elem = away_team_elem.find_next_sibling('td', class_=['Table__TD'])
-                        if home_team_elem:
-                            home_team_name = home_team_elem.find('span', class_='Table__Team')
-                            if home_team_name:
-                                home_team = home_team_name.text.strip()
-                                
-                                # Map to official team names
-                                if away_team in TEAM_NAME_MAP and home_team in TEAM_NAME_MAP:
-                                    away_team_full = TEAM_NAME_MAP[away_team]
-                                    home_team_full = TEAM_NAME_MAP[home_team]
-                                    print(f"Found game: {away_team_full} @ {home_team_full}")
-                                    games.append((away_team_full, home_team_full))
-                                else:
-                                    print(f"Warning: Could not map team names: {away_team} @ {home_team}")
+                    # Map to official team names
+                    if away_team in TEAM_NAME_MAP and home_team in TEAM_NAME_MAP:
+                        away_team_full = TEAM_NAME_MAP[away_team]
+                        home_team_full = TEAM_NAME_MAP[home_team]
+                        print(f"Found game: {away_team_full} @ {home_team_full}")
+                        games.append((away_team_full, home_team_full))
+                    else:
+                        print(f"Warning: Could not map team names: {away_team} @ {home_team}")
             
             if not games:
                 print("No games found in today's schedule")

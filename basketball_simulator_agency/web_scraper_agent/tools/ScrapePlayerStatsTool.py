@@ -12,7 +12,7 @@ class ScrapePlayerStatsTool(BaseTool):
     The tool fetches player stats and saves them to a CSV file.
     """
     output_path: str = Field(
-        default="data/nba_player_stats.csv",
+        default="nba_player_stats.csv",
         description="Path where the CSV file will be saved"
     )
 

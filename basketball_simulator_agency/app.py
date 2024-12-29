@@ -48,9 +48,7 @@ try:
     game_agent = GameSimulationAgent()
     simulation_agency = Agency(
         game_agent,
-        temperature=0.7,
-        request_timeout=120,
-        max_tokens=1000
+        temperature=0.7
     )
     print("Agency initialized successfully")
 except Exception as e:
